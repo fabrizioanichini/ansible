@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  ansible_test:
+    build:
+      context: .
+    container_name: ansible-ubuntu-test
+    volumes:
+      - .:/home/ansibleuser
+    tty: true

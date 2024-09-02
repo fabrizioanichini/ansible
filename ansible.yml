@@ -1,5 +1,6 @@
 - hosts: localhost
   become: no
+  connection: local
   vars:
     the_user: "{{ ansible_user_id }}"
   tasks:
