@@ -20,41 +20,20 @@ git clone <your-repository-url>
 cd <your-repository-directory>
 ```
 
-### 2. Build and run Docker container
+### 2. Build Docker container
 
 ```bash
-docker-compose up --build
+docker build -t my-ansible-env .
 ```
 
-### 3. Enter the container
+### 3. Run the container
 
 ```bash
-docker exec -it ansible-ubuntu-test /bin/bash
+docker run -it -e USER=root -e HOME=/root my-ansible-env
 ```
 
 ### 4. Run Ansible playbook
 
 ```bash
-ansible-playbook -i localhost, ansible-playbook.yml
+ansible-playbook local.yml --ask-vault-pass
 ```
-
-## Remounting after changing the Ansible
-
-### 1. Stop and Remove the Existing Container
-
-```bash
-docker-compose down
-```
-
-### 2. Rebuild
-
-```bash
-docker-compose up --build
-```
-
-### 3. Enter
-
-```bash
-docker exec -it ansible-ubuntu-test /bin/bash
-```
-
