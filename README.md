@@ -7,7 +7,6 @@ This repository provides a Docker-based environment to test Ansible playbooks on
 Before you start, ensure you have the following installed on your system:
 
 - [Docker](https://docs.docker.com/get-docker/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Setup and Usage
 
