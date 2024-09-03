@@ -2,12 +2,6 @@
 
 This repository provides an environment to test and run Ansible playbooks on an Ubuntu system. The primary goal is to facilitate easy editing and execution of Ansible playbooks on your local system. Additionally, it includes a Docker-based environment for further development and isolated testing.
 
-## Prerequisites ( for development and testing purpose in Docker ) 
-
-Before you start, ensure you have the following installed on your system:
-
-- [Docker](https://docs.docker.com/get-docker/)
-
 ## Setup and Usage
 
 Follow these steps to set up and use the Docker environment:
@@ -41,6 +35,10 @@ ansible-playbook local.yml --ask-vault-pass
 ## Further Development 
 
 If you want to test or develop the Ansible playbooks in an isolated environment, you can use Docker. This section explains how to set up and use the Docker-based environment.
+
+Before you start, ensure you have the following installed on your system:
+
+- [Docker](https://docs.docker.com/get-docker/)
 
 ### 1. Build Docker Container
 
