@@ -1,0 +1,12 @@
+- name: Define home and username variables
+  set_fact:
+    home: "{{ lookup('env', 'HOME') }}"
+    username: "{{ lookup('env', 'USER') }}"
+
+- name: Copying dotfiles to $HOME
+  ansible.builtin.copy:
+    src: ../env/
+    dest: "{{ home }}"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0755'
