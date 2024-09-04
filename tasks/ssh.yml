@@ -32,12 +32,26 @@
     path: "{{ lookup('env', 'HOME') }}/.ssh/known_hosts"
     mode: '0644'
 
-- name: Start SSH agent and add key
+- name: Create SSH config file
+  copy:
+    dest: "{{ lookup('env', 'HOME') }}/.ssh/config"
+    content: |
+      Host github.com-proton
+        HostName github.com
+        User git
+        IdentityFile {{ dest_key_proton }}
+
+      Host github.com-tomatoai
+        HostName github.com
+        User git
+        IdentityFile {{ dest_key_tomatoai }}
+    mode: '0600'
+
+- name: Start SSH agent and add keys
   shell: |
     eval $(ssh-agent -s)
-    ssh-add "{{ dest_key_tomatoai }}"
-  args:
-    executable: /bin/bash
+    ssh-add {{ dest_key_proton }}
+    ssh-add {{ dest_key_tomatoai }}
 
 - name: Change ownership of .ssh directory and keys
   become: true

@@ -5,7 +5,7 @@
 
 - name: Clone tomato-frontend-2.0 repository into front folder
   git:
-    repo: 'git@github.com:tomatoai-dev/tomato-frontend-2.0.git'
+    repo: 'git@github.com-tomatoai:tomatoai-dev/tomato-frontend-2.0.git'
     dest: "{{ lookup('env', 'HOME') }}/tomatoai/front"
     version: dev
 
@@ -21,7 +21,7 @@
 
 - name: Clone tomato-2.0 repository into back folder
   git:
-    repo: 'git@github.com:tomatoai-dev/tomato-2.0.git'
+    repo: 'git@github.com-tomatoai:tomatoai-dev/tomato-2.0.git'
     dest: "{{ lookup('env', 'HOME') }}/tomatoai/back"
     version: dev
 
