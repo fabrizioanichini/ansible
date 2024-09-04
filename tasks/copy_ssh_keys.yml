@@ -1,0 +1,23 @@
+- name: Copy proton_rsa key
+  copy:
+    src: "{{ source_key_proton }}"
+    dest: "{{ dest_key_proton }}"
+    mode: '0600'
+
+- name: Copy proton_rsa.pub key
+  copy:
+    src: "{{ source_key_proton_pub }}"
+    dest: "{{ dest_key_proton_pub }}"
+    mode: '0644'
+
+- name: Copy tomatoai_rsa key
+  copy:
+    src: "{{ source_key_tomatoai }}"
+    dest: "{{ dest_key_tomatoai }}"
+    mode: '0600'
+
+- name: Copy tomatoai_rsa.pub key
+  copy:
+    src: "{{ source_key_tomatoai_pub }}"
+    dest: "{{ dest_key_tomatoai_pub }}"
+    mode: '0644'
