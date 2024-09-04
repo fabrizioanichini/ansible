@@ -11,8 +11,8 @@
   tags:
     - install
     - node
-- name: Install correct version of Node
-  shell: n 14
+- name: Install LTS version of Node
+  shell: n lts 
   tags:
     - install
     - node

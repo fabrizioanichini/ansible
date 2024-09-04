@@ -30,3 +30,16 @@
     - dotfiles
     - install
     - ssh
+
+- name: Change ownership of .ssh directory and keys
+  become_user: root
+  file:
+    path: "{{ dest_key | dirname }}"
+    state: directory
+    owner: "{{ lookup('env', 'USER') }}"
+    group: "{{ lookup('env', 'USER') }}"
+    recurse: yes
+  tags:
+    - dotfiles
+    - install
+    - ssh
