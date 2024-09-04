@@ -1,0 +1,25 @@
+- name: Ensure global Git configuration includes conditional configurations
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.gitconfig"
+    line: |
+      [includeIf "gitdir:~/projects/proton/"]
+          path = ~/.gitconfig-proton
+      [includeIf "gitdir:~/projects/tomatoai/"]
+          path = ~/.gitconfig-tomatoai
+    create: yes
+
+- name: Create Git configuration for proton
+  copy:
+    dest: "{{ lookup('env', 'HOME') }}/.gitconfig-proton"
+    content: |
+      [user]
+          name = Fabrizio Anichini
+          email = fabrizioanichini@proton.me
+
+- name: Create Git configuration for tomatoai
+  copy:
+    dest: "{{ lookup('env', 'HOME') }}/.gitconfig-tomatoai"
+    content: |
+      [user]
+          name = Fabrizio Anichini
+          email = fabrizioanichini@tomatoai.it
