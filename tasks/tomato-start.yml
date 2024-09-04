@@ -1,7 +1,18 @@
-- name: Ensure ~/tomatoai/front directory exists
+- name: Ensure ~/tomatoai directory exists with correct permissions
+  file:
+    path: "{{ lookup('env', 'HOME') }}/tomatoai"
+    state: directory
+    mode: '0755'
+    owner: "{{ lookup('env', 'USER') }}"
+    group: "{{ lookup('env', 'USER') }}"
+
+- name: Ensure ~/tomatoai/front directory exists with correct permissions
   file:
     path: "{{ lookup('env', 'HOME') }}/tomatoai/front"
     state: directory
+    mode: '0755'
+    owner: "{{ lookup('env', 'USER') }}"
+    group: "{{ lookup('env', 'USER') }}"
 
 - name: Clone tomato-frontend-2.0 repository into front folder
   git:
@@ -18,11 +29,15 @@
   copy:
     src: "{{ lookup('env', 'HOME') }}/tomatoai/front/.env.example"
     dest: "{{ lookup('env', 'HOME') }}/tomatoai/front/.env"
+    remote_src: yes
 
-- name: Ensure ~/tomatoai/back directory exists
+- name: Ensure ~/tomatoai/back directory exists with correct permissions
   file:
     path: "{{ lookup('env', 'HOME') }}/tomatoai/back"
     state: directory
+    mode: '0755'
+    owner: "{{ lookup('env', 'USER') }}"
+    group: "{{ lookup('env', 'USER') }}"
 
 - name: Clone tomato-2.0 repository into back folder
   git:
@@ -34,6 +49,7 @@
   copy:
     src: "{{ lookup('env', 'HOME') }}/tomatoai/back/backend/.env.example"
     dest: "{{ lookup('env', 'HOME') }}/tomatoai/back/backend/.env"
+    remote_src: yes
 
 - name: Build and start Docker containers in back folder
   docker_compose:
