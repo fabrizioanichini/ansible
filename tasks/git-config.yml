@@ -2,9 +2,9 @@
   lineinfile:
     path: "{{ lookup('env', 'HOME') }}/.gitconfig"
     line: |
-      [includeIf "gitdir:~/projects/proton/"]
+      [includeIf "gitdir:~/projects/"]
           path = ~/.gitconfig-proton
-      [includeIf "gitdir:~/projects/tomatoai/"]
+      [includeIf "gitdir:~/tomatoai/"]
           path = ~/.gitconfig-tomatoai
     create: yes
 
@@ -22,4 +22,4 @@
     content: |
       [user]
           name = Fabrizio Anichini
-          email = fabrizioanichini@tomatoai.it
+          email = fabrizio.anichini@tomatoai.it
