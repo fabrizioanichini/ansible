@@ -1,0 +1,36 @@
+- name: Ensure ~/protonai directory exists
+  file:
+	path: "{{ lookup('env', 'HOME') }}/protonai"
+	state: directory
+
+- name: Clone tomato-frontend-2.0 repository into front folder
+  git:
+	repo: 'git@github.com:tomatoai-dev/tomato-frontend-2.0.git'
+	dest: "{{ lookup('env', 'HOME') }}/protonai/front"
+	version: dev
+
+- name: Run npm install in front folder
+  command: npm install
+  args:
+	chdir: "{{ lookup('env', 'HOME') }}/protonai/front"
+
+- name: Copy .env.example to .env in front folder
+  copy:
+	src: "{{ lookup('env', 'HOME') }}/protonai/front/.env.example"
+	dest: "{{ lookup('env', 'HOME') }}/protonai/front/.env"
+
+- name: Clone tomato-2.0 repository into back folder
+  git:
+	repo: 'git@github.com:tomatoai-dev/tomato-2.0.git'
+	dest: "{{ lookup('env', 'HOME') }}/protonai/back"
+	version: dev
+
+- name: Copy backend/.env.example to backend/.env in back folder
+  command: cp backend/.env.example backend/.env
+  args:
+	chdir: "{{ lookup('env', 'HOME') }}/protonai/back"
+
+- name: Build and start Docker containers in back folder
+  command: docker-compose up --build
+  args:
+	chdir: "{{ lookup('env', 'HOME') }}/protonai/back"
