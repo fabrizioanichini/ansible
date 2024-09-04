@@ -23,7 +23,7 @@
     - { src: "{{ source_key_tomatoai_pub }}", dest: "{{ dest_key_tomatoai_pub }}" }
 
 - name: Add GitHub to known hosts
-  shell: ssh-keyscan github.com >> "{{ lookup('env', 'HOME') }}/.ssh/known_hosts"
+  shell: ssh-keyscan -H github.com >> "{{ lookup('env', 'HOME') }}/.ssh/known_hosts"
   args:
     creates: "{{ lookup('env', 'HOME') }}/.ssh/known_hosts"
 
