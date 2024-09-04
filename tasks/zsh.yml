@@ -44,10 +44,21 @@
     - dotfiles
     - zsh
 
-- name: Set Zsh as the default shell and switch immediately for the current user
-  ansible.builtin.shell: |
-    chsh -s /bin/zsh "{{ username }}"
-    exec /bin/zsh
+- name: Set Zsh as the default shell for the user
+  ansible.builtin.user:
+    name: "{{ username }}"
+    shell: "{{ zsh_path.stdout }}"
+  become: yes
+  tags:
+    - install
+    - productivity
+    - dotfiles
+    - zsh
+
+- name: Get zsh path
+  ansible.builtin.command: which zsh
+  register: zsh_path
+  changed_when: false
   tags:
     - install
     - productivity
