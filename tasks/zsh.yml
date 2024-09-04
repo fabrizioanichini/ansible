@@ -60,3 +60,12 @@
     - productivity
     - dotfiles
     - zsh
+
+- name: Display completion message
+  ansible.builtin.debug:
+    msg: "Zsh setup is complete! Please open a new terminal session for the changes to take effect."
+  tags:
+    - install
+    - productivity
+    - dotfiles
+    - zsh
