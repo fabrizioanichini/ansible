@@ -20,8 +20,7 @@
     dest: "{{ lookup('env', 'HOME') }}/tomatoai/front"
     version: dev
     key_file: "{{ lookup('env', 'HOME') }}/.ssh/tomatoai_rsa"
-    accept_hostkey: yes
-
+  
 - name: Run npm install in front folder
   command: npm install
   args:
@@ -47,7 +46,6 @@
     dest: "{{ lookup('env', 'HOME') }}/tomatoai/back"
     version: dev
     key_file: "{{ lookup('env', 'HOME') }}/.ssh/tomatoai_rsa"
-    accept_hostkey: yes
 
 - name: Copy backend/.env.example to backend/.env in back folder
   copy:
