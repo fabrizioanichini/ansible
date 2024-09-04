@@ -21,3 +21,16 @@
   with_items:
     - { src: "{{ source_key_proton_pub }}", dest: "{{ dest_key_proton_pub }}" }
     - { src: "{{ source_key_tomatoai_pub }}", dest: "{{ dest_key_tomatoai_pub }}" }
+
+- name: Change ownership of .ssh directory and keys
+  become: true
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.ssh"
+    state: directory
+    owner: "{{ lookup('env', 'USER') }}"
+    group: "{{ lookup('env', 'USER') }}"
+    recurse: yes
+  tags:
+    - dotfiles
+    - install
+    - ssh
