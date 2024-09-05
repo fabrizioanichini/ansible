@@ -29,6 +29,31 @@
   environment:
     SSH_AUTH_SOCK: /tmp/ssh-auth-sock-{{ ansible_date_time.epoch }}
 
+- name: Display SSH config content
+  command: cat "/home/test/.ssh/config"
+  register: ssh_config_content
+
+- name: Show SSH config content
+  debug:
+    var: ssh_config_content.stdout_lines
+
+- name: Test SSH connection to GitHub
+  command: ssh -T git@github.com-tomatoai
+  register: ssh_test_result
+  ignore_errors: yes
+
+- name: Display SSH test result
+  debug:
+    var: ssh_test_result
+
+- name: List SSH keys in agent
+  command: ssh-add -l
+  register: ssh_keys
+
+- name: Display SSH keys
+  debug:
+    var: ssh_keys.stdout_lines
+
 - name: Ensure .ssh directory exists
   file:
     path: "{{ lookup('env', 'HOME') }}/.ssh"

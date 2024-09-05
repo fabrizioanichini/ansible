@@ -15,15 +15,12 @@
     group: "{{ lookup('env', 'USER') }}"
 
 - name: Clone tomato-frontend-2.0 repository into front folder
-  ansible.builtin.git:
-    repo: 'git@github.com-tomatoai:tomatoai-dev/tomato-frontend-2.0.git'
+  git:
+    repo: 'https://github.com/tomatoai-dev/tomato-frontend-2.0.git'
     dest: "{{ lookup('env', 'HOME') }}/tomatoai/front"
     version: dev
-    key_file: "{{ lookup('env', 'HOME') }}/.ssh/tomatoai_rsa"
-    accept_hostkey: yes
-  environment:
-    GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no -i {{ lookup('env', 'HOME') }}/.ssh/tomatoai_rsa"
-    SSH_AUTH_SOCK: /tmp/ssh-auth-sock-{{ ansible_date_time.epoch }}
+  tags: 
+    - tomatoai
 
 - name: Run npm install in front folder
   command: npm install
