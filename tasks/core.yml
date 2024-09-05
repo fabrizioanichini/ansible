@@ -1,0 +1,12 @@
+- name: Ensure utility packages are installed
+  apt:
+    name:
+      - bat
+      - fzf
+      - xclip
+      - ripgrep
+      - neofetch
+      - jq  
+      - tldr
+    state: present
+    update_cache: yes
