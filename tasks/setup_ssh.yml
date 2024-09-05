@@ -1,0 +1,21 @@
+- name: Add GitHub to known hosts
+  shell: ssh-keyscan -H github.com >> "{{ lookup('env', 'HOME') }}/.ssh/known_hosts"
+  args:
+    creates: "{{ lookup('env', 'HOME') }}/.ssh/known_hosts"
+
+- name: Ensure known_hosts file has correct permissions
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.ssh/known_hosts"
+    mode: '0644'
+
+- name: Create SSH config file
+  copy:
+    dest: "{{ lookup('env', 'HOME') }}/.ssh/config"
+    content: |
+      {% for key in ssh_keys %}
+      Host github.com-{{ key.name }}
+        HostName github.com
+        User git
+        IdentityFile {{ key.dest_key }}
+      {% endfor %}
+    mode: '0600'

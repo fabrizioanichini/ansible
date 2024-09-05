@@ -1,23 +1,19 @@
-- name: Copy proton_rsa key
+- name: Ensure .ssh directory exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.ssh"
+    state: directory
+    mode: '0700'
+
+- name: Copy SSH private keys
   copy:
-    src: "{{ source_key_proton }}"
-    dest: "{{ dest_key_proton }}"
+    src: "{{ item.src_key }}"
+    dest: "{{ item.dest_key }}"
     mode: '0600'
+  with_items: "{{ ssh_keys }}"
 
-- name: Copy proton_rsa.pub key
+- name: Copy SSH public keys
   copy:
-    src: "{{ source_key_proton_pub }}"
-    dest: "{{ dest_key_proton_pub }}"
+    src: "{{ item.src_pub_key }}"
+    dest: "{{ item.dest_pub_key }}"
     mode: '0644'
-
-- name: Copy tomatoai_rsa key
-  copy:
-    src: "{{ source_key_tomatoai }}"
-    dest: "{{ dest_key_tomatoai }}"
-    mode: '0600'
-
-- name: Copy tomatoai_rsa.pub key
-  copy:
-    src: "{{ source_key_tomatoai_pub }}"
-    dest: "{{ dest_key_tomatoai_pub }}"
-    mode: '0644'
+  with_items: "{{ ssh_keys }}"
