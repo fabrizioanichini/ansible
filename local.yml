@@ -20,4 +20,3 @@
     - include_tasks: tasks/zsh.yml
     - include_tasks: tasks/dotfile.yml
     - include_tasks: tasks/git-config.yml
-    - include_tasks: tasks/tomato-start.yml
