@@ -20,8 +20,12 @@
     dest: "{{ lookup('env', 'HOME') }}/tomatoai/front"
     version: dev
     key_file: "{{ lookup('env', 'HOME') }}/.ssh/tomatoai_rsa"
-  tags: tomatoai
-  
+    accept_hostkey: yes
+  vars:
+    ansible_ssh_common_args: '-F {{ lookup("env", "HOME") }}/.ssh/config'
+  tags: 
+    - tomatoai
+    
 - name: Run npm install in front folder
   command: npm install
   args:
