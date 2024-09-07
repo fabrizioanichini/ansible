@@ -1,51 +1,65 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# Function to print actions
-info() {
-  echo -e "\e[32m[INFO]\e[0m $1"
+# Exit immediately if a command exits with a non-zero status.
+set -e
+
+# Function to remove a package if it's installed
+remove_if_installed() {
+    if dpkg -l "$1" &> /dev/null; then
+        sudo apt-get remove -y "$1"
+    fi
 }
 
-# Undo Node.js and npm
-info "Uninstalling global npm packages..."
-npm uninstall -g yarn typescript-language-server typescript
+echo "Starting cleanup process..."
 
-info "Removing Node.js and npm..."
-sudo apt purge -y nodejs npm
+# Remove utility packages
+packages=(bat fzf xclip ripgrep neofetch jq tldr nodejs npm zsh)
+for package in "${packages[@]}"; do
+    remove_if_installed "$package"
+done
 
-info "Cleaning up Node.js binaries..."
-sudo rm -f /usr/local/lib/node_modules/n/bin/n
-sudo rm -f /usr/local/bin/n
-sudo rm -f /usr/local/bin/node
+# Remove N (Node version manager)
+sudo npm uninstall -g n
 
-# Undo Zsh and Oh My Zsh
-info "Uninstalling Oh My Zsh..."
+# Remove Oh-My-Zsh
 if [ -d "$HOME/.oh-my-zsh" ]; then
-  uninstall_oh_my_zsh
-else
-  info "Oh My Zsh is not installed."
+    echo "Removing Oh-My-Zsh..."
+    # Change ownership of .oh-my-zsh directory to current user
+    sudo chown -R "$USER:$USER" "$HOME/.oh-my-zsh"
+    # Set write permissions for the owner
+    sudo chmod -R u+w "$HOME/.oh-my-zsh"
+    # Now remove the directory
+    rm -rf "$HOME/.oh-my-zsh"
 fi
 
-info "Switching shell back to Bash..."
-chsh -s /bin/bash
+# Remove SSH keys and configurations
+rm -f "$HOME/.ssh/proton_rsa" "$HOME/.ssh/proton_rsa.pub"
+rm -f "$HOME/.ssh/tomatoai_rsa" "$HOME/.ssh/tomatoai_rsa.pub"
+rm -f "$HOME/.ssh/config"
+if [ -f "$HOME/.ssh/known_hosts" ]; then
+    sed -i '/github.com/d' "$HOME/.ssh/known_hosts"
+fi
 
-info "Removing Zsh..."
-sudo apt purge -y zsh
+# Remove Git configurations
+rm -f "$HOME/.gitconfig-proton" "$HOME/.gitconfig-tomatoai"
+if [ -f "$HOME/.gitconfig" ]; then
+    sed -i '/includeIf/d' "$HOME/.gitconfig"
+    sed -i '/path = ~\/.gitconfig-proton/d' "$HOME/.gitconfig"
+    sed -i '/path = ~\/.gitconfig-tomatoai/d' "$HOME/.gitconfig"
+fi
 
-info "Cleaning up Zsh configuration files..."
-rm -f ~/.zshrc
-rm -f ~/.zprofile
+# Remove dotfiles (this assumes all dotfiles are in the home directory)
+for file in "$HOME"/.*; do
+    if [ -f "$file" ] && [ "$file" != "$HOME/.bashrc" ] && [ "$file" != "$HOME/.profile" ]; then
+        rm -f "$file"
+    fi
+done
 
-# Remove utilities installed in core.yml
-info "Removing utilities installed in core.yml (bat, fzf, xclip, ripgrep, neofetch, jq, tldr)..."
-sudo apt purge -y bat fzf xclip ripgrep neofetch jq tldr
+# Reset default shell to bash
+sudo chsh -s /bin/bash "$USER"
 
-# Remove SSH keys and related configuration
-info "Removing SSH keys and configurations..."
-rm -rf ~/.ssh
+# Clean up apt
+sudo apt-get autoremove -y
+sudo apt-get clean
 
-# Clean up unused packages and dependencies
-info "Auto-removing unused packages..."
-sudo apt autoremove -y
-
-# Final message
-info "Environment cleaned."
+echo "Cleanup process completed. Please reboot your system for changes to take full effect."
