@@ -55,5 +55,5 @@ docker run -it -e USER=root -e HOME=/root my-ansible-env
 ### 3. Run Ansible playbook
 
 ```bash
-ansible-playbook local.yml --ask-vault-pass
+ansible-playbook local.yml --ask-become-pass --ask-vault-pass
 ```
