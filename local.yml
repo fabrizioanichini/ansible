@@ -1,28 +1,35 @@
+---
 - hosts: localhost
-  become: true
   vars:
     ssh_keys:
       - name: "proton"
         src_key: "./.ssh/proton_rsa"
-        dest_key: "{{ lookup('env', 'HOME') }}/.ssh/proton_rsa"
+        dest_key: "{{ ansible_env.HOME }}/.ssh/proton_rsa"
         src_pub_key: "./.ssh/proton_rsa.pub"
-        dest_pub_key: "{{ lookup('env', 'HOME') }}/.ssh/proton_rsa.pub"
+        dest_pub_key: "{{ ansible_env.HOME }}/.ssh/proton_rsa.pub"
       - name: "tomatoai"
         src_key: "./.ssh/tomatoai_rsa"
-        dest_key: "{{ lookup('env', 'HOME') }}/.ssh/tomatoai_rsa"
+        dest_key: "{{ ansible_env.HOME }}/.ssh/tomatoai_rsa"
         src_pub_key: "./.ssh/tomatoai_rsa.pub"
-        dest_pub_key: "{{ lookup('env', 'HOME') }}/.ssh/tomatoai_rsa.pub"
-
-  pre_tasks:
-    - name: update repositories
-      apt: update_cache=yes
-      changed_when: False
+        dest_pub_key: "{{ ansible_env.HOME }}/.ssh/tomatoai_rsa.pub"
   tasks:
-    - include_tasks: tasks/core.yml
-    - include_tasks: tasks/copy_keys.yml
-    - include_tasks: tasks/setup_ssh.yml
-    - include_tasks: tasks/ssh_agent.yml
-    - include_tasks: tasks/node.yml
-    - include_tasks: tasks/zsh.yml
-    - include_tasks: tasks/dotfile.yml
-    - include_tasks: tasks/git-config.yml
+    - name: Tasks requiring root privileges
+      block:
+        - name: Update repositories
+          apt:
+            update_cache: yes
+          changed_when: False
+
+        - include_tasks: tasks/core.yml
+        - include_tasks: tasks/node.yml
+        - include_tasks: tasks/zsh.yml
+      become: true
+
+    - name: Tasks running as regular user
+      block:
+        - include_tasks: tasks/copy_keys.yml
+        - include_tasks: tasks/setup_ssh.yml
+        - include_tasks: tasks/ssh_agent.yml
+        - include_tasks: tasks/dotfile.yml
+        - include_tasks: tasks/git-config.yml
+        - include_tasks: tasks/clone_macos_configs.yml
