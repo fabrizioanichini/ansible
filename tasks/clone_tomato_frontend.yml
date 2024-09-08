@@ -1,0 +1,54 @@
+- name: Debug SSH config for tomatoai
+  shell: cat {{ ansible_env.HOME }}/.ssh/config
+  register: ssh_config_content
+
+- name: Show SSH config for tomatoai
+  debug:
+    var: ssh_config_content.stdout_lines
+
+- name: Debug tomatoai SSH key permissions
+  shell: ls -l {{ ansible_env.HOME }}/.ssh/tomatoai_rsa
+  register: ssh_key_permissions
+
+- name: Show tomatoai SSH key permissions
+  debug:
+    var: ssh_key_permissions.stdout_lines
+
+- name: Test SSH connection to GitHub for tomatoai
+  shell: ssh -T git@github.com-tomatoai
+  register: ssh_test
+  ignore_errors: yes
+
+- name: Debug SSH test output for tomatoai
+  debug:
+    var: ssh_test
+
+- name: Ensure tomato directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/tomato"
+    state: directory
+    mode: '0755'
+
+- name: Clone tomato-frontend-2.0 repository
+  git:
+    repo: 'git@github.com-tomatoai:tomatoai-dev/tomato-frontend-2.0.git'
+    dest: "{{ ansible_env.HOME }}/tomato/front"
+    version: dev
+    accept_hostkey: yes
+  environment:
+    GIT_SSH_COMMAND: "ssh -vvv"
+  register: git_clone_result
+
+- name: Debug Git clone result for tomato-frontend
+  debug:
+    var: git_clone_result
+
+- name: Copy .env.example to .env in the front directory
+  command: cp .env.example .env
+  args:
+    chdir: "{{ ansible_env.HOME }}/tomato/front"
+
+- name: Run npm install in the front directory
+  command: npm install
+  args:
+    chdir: "{{ ansible_env.HOME }}/tomato/front"
