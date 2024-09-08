@@ -43,10 +43,29 @@
   debug:
     var: git_clone_result
 
-- name: Copy .env.example to .env in the front directory
-  command: cp .env.example .env
+- name: Clone private Gist for .env file
+  git:
+    repo: 'git@gist.github.com-tomatoai:d72a1ba1da432efcbe5d6bc522a5bbde.git'
+    dest: "{{ ansible_env.HOME }}/tomato/front/gist_env"
+    version: main
+    accept_hostkey: yes
+  environment:
+    GIT_SSH_COMMAND: "ssh -vvv"
+  register: gist_clone_result
+
+- name: Debug Gist clone result
+  debug:
+    var: gist_clone_result
+
+- name: Copy .env file from cloned Gist
+  command: cp gist_env/.env .env
   args:
     chdir: "{{ ansible_env.HOME }}/tomato/front"
+
+- name: Remove Gist directory
+  file:
+    path: "{{ ansible_env.HOME }}/tomato/front/gist_env"
+    state: absent
 
 - name: Run npm install in the front directory
   command: npm install
