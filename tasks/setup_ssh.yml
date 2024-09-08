@@ -3,6 +3,11 @@
   args:
     creates: "{{ lookup('env', 'HOME') }}/.ssh/known_hosts"
 
+- name: Add GitHub Gist to known hosts
+  shell: ssh-keyscan -H gist.github.com >> "{{ lookup('env', 'HOME') }}/.ssh/known_hosts"
+  args:
+    creates: "{{ lookup('env', 'HOME') }}/.ssh/known_hosts"
+
 - name: Ensure known_hosts file has correct permissions
   file:
     path: "{{ lookup('env', 'HOME') }}/.ssh/known_hosts"
@@ -17,5 +22,9 @@
         HostName github.com
         User git
         IdentityFile {{ key.dest_key }}
+
+      Host {{ key.gist_host }}
+        HostName gist.github.com
+        User git
+        IdentityFile {{ key.dest_key }}
       {% endfor %}
-    mode: '0600'
