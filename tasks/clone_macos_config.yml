@@ -1,0 +1,52 @@
+- name: Debug current user
+  shell: whoami
+  register: current_user
+
+- name: Show current user
+  debug:
+    var: current_user.stdout
+
+- name: Debug SSH config
+  shell: cat {{ ansible_env.HOME }}/.ssh/config
+  register: ssh_config_content
+
+- name: Show SSH config
+  debug:
+    var: ssh_config_content.stdout_lines
+
+- name: Debug SSH key permissions
+  shell: ls -l {{ ansible_env.HOME }}/.ssh/proton_rsa
+  register: ssh_key_permissions
+
+- name: Show SSH key permissions
+  debug:
+    var: ssh_key_permissions.stdout_lines
+
+- name: Test SSH connection to GitHub
+  shell: ssh -T git@github.com-proton
+  register: ssh_test
+  ignore_errors: yes
+
+- name: Debug SSH test output
+  debug:
+    var: ssh_test
+
+- name: Ensure projects directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/projects"
+    state: directory
+    mode: '0755'
+
+- name: Clone macOs-configs repository
+  git:
+    repo: 'git@github.com-proton:fabrizioanichini/macOs-configs.git'
+    dest: "{{ ansible_env.HOME }}/projects/macOs-configs"
+    version: main
+    accept_hostkey: yes
+  environment:
+    GIT_SSH_COMMAND: "ssh -vvv"
+  register: git_clone_result
+
+- name: Debug Git clone result
+  debug:
+    var: git_clone_result
