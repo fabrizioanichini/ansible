@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
@@ -54,6 +53,21 @@ for file in "$HOME"/.*; do
         rm -f "$file"
     fi
 done
+
+# Remove folders
+rm -rf ~/projects
+rm -rf ~/tomato
+
+# Remove Neovim
+sudo rm -f /usr/local/bin/nvim
+sudo rm -rf /usr/local/share/nvim
+sudo rm -rf /usr/local/lib/nvim
+
+# Remove LazyVim configurations
+rm -rf ~/.config/nvim
+rm -rf ~/.local/share/nvim
+rm -rf ~/.local/state/nvim
+rm -rf ~/.cache/nvim
 
 # Reset default shell to bash
 sudo chsh -s /bin/bash "$USER"
