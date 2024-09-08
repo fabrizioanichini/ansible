@@ -33,6 +33,6 @@
         - include_tasks: tasks/dotfile.yml
         - include_tasks: tasks/install_neovim.yml
         - include_tasks: tasks/git-config.yml
-        - include_tasks: tasks/clone_macos_configs.yml
+        - include_tasks: tasks/clone_macos_config.yml
         - include_tasks: tasks/clone_tomato_frontend.yml
         - include_tasks: tasks/clone_tomato_backend.yml
