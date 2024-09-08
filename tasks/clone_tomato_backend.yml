@@ -1,0 +1,59 @@
+- name: Debug SSH config for tomatoai
+  shell: cat {{ ansible_env.HOME }}/.ssh/config
+  register: ssh_config_content
+
+- name: Show SSH config for tomatoai
+  debug:
+    var: ssh_config_content.stdout_lines
+
+- name: Debug tomatoai SSH key permissions
+  shell: ls -l {{ ansible_env.HOME }}/.ssh/tomatoai_rsa
+  register: ssh_key_permissions
+
+- name: Show tomatoai SSH key permissions
+  debug:
+    var: ssh_key_permissions.stdout_lines
+
+- name: Test SSH connection to GitHub for tomatoai
+  shell: ssh -T git@github.com-tomatoai
+  register: ssh_test
+  ignore_errors: yes
+
+- name: Debug SSH test output for tomatoai
+  debug:
+    var: ssh_test
+
+- name: Ensure tomato directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/tomato"
+    state: directory
+    mode: '0755'
+
+- name: Clone tomato-2.0 backend repository
+  git:
+    repo: 'git@github.com-tomatoai:tomatoai-dev/tomato-2.0.git'
+    dest: "{{ ansible_env.HOME }}/tomato/back"
+    version: dev
+    accept_hostkey: yes
+  environment:
+    GIT_SSH_COMMAND: "ssh -vvv"
+  register: git_clone_result
+
+- name: Debug Git clone result for tomato backend
+  debug:
+    var: git_clone_result
+
+- name: Copy backend .env.example to .env
+  command: cp backend/.env.example backend/.env
+  args:
+    chdir: "{{ ansible_env.HOME }}/tomato/back"
+
+- name: Build Docker container without starting
+  command: docker-compose build
+  args:
+    chdir: "{{ ansible_env.HOME }}/tomato/back"
+  register: docker_build_output
+
+- name: Debug Docker build output
+  debug:
+    var: docker_build_output.stdout_lines
