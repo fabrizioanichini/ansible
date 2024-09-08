@@ -43,10 +43,29 @@
   debug:
     var: git_clone_result
 
-- name: Copy backend .env.example to .env
-  command: cp backend/.env.example backend/.env
+- name: Clone private Gist for backend .env file
+  git:
+    repo: 'git@gist.github.com-tomatoai:ddc96d31c7b4e12bc6036357b42cc0ad.git'
+    dest: "{{ ansible_env.HOME }}/tomato/back/gist_env"
+    version: main
+    accept_hostkey: yes
+  environment:
+    GIT_SSH_COMMAND: "ssh -vvv"
+  register: gist_clone_result
+
+- name: Debug Gist clone result
+  debug:
+    var: gist_clone_result
+
+- name: Copy .env file from cloned Gist to backend
+  command: cp gist_env/.env backend/.env
   args:
     chdir: "{{ ansible_env.HOME }}/tomato/back"
+
+- name: Remove Gist directory
+  file:
+    path: "{{ ansible_env.HOME }}/tomato/back/gist_env"
+    state: absent
 
 - name: Build Docker container without starting
   command: docker-compose build
