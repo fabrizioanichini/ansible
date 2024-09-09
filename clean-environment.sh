@@ -58,6 +58,9 @@ done
 rm -rf ~/projects
 rm -rf ~/tomato
 
+# remove tmux sessionizer
+rm ~/tmux-sessionizer.sh
+
 # Remove Neovim
 sudo rm -f /usr/local/bin/nvim
 sudo rm -rf /usr/local/share/nvim
