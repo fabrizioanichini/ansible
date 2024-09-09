@@ -102,3 +102,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Home Path
+export PATH=$HOME/.local/bin:$PATH
+
+# Tmux sessionizer
+bindkey -s '^F' 'source ~/tmux-sessionizer.sh\n'
