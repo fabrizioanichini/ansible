@@ -1,3 +1,10 @@
+" ---------- Autoload VimPlug -------
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " ----------- Basic Vim Settings -----------
 set scrolloff=8           " Keep 8 lines visible above/below the cursor when scrolling
 set number                " Show line numbers
@@ -28,11 +35,18 @@ endif
 let g:desert_termcolors=256 " Set color depth for the 'desert' theme
 colorscheme desert        " Set the color scheme to 'desert'
 
+" ----------- Plugins ----------
+call plug#begin()
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+call plug#end()
+
 " ----------- Key Mappings -----------
-nnoremap <leader>pv :Vex<CR> " Open the file explorer (Vex) with <leader>pv
-nnoremap <leader><CR> :so ~/.vimrc<CR> " Source (reload) .vimrc with <leader><CR>
-nnoremap <C-6> ^         " Remap Ctrl-6 to switch to the previous buffer
-nnoremap <C-p> :Files<CR> " Open fuzzy file finder (Files) with Ctrl-p
+let mapleader = " "                        " Remap the leader key to <space-bar>  
+nnoremap <leader>pv :Vex<CR> |             " Open the file explorer (Vex) with <leader>pv
+nnoremap <leader><CR> :so ~/.vimrc<CR> |   " Source (reload) .vimrc with <leader><CR>
+nnoremap <C-6> ^ |                         " Remap Ctrl-6 to switch to the previous buffer
+nnoremap <C-p> :Files<CR> |                " Open fuzzy file finder (Files) with Ctrl-p
 
 " ----------- Quickfix Navigation -----------
 nnoremap <C-j> :cnext<CR> " Go to the next item in the quickfix list with Ctrl-j
@@ -57,3 +71,4 @@ set lazyredraw            " Don't redraw the screen during macros (for performan
 
 " ----------- File Type Specific Settings -----------
 filetype plugin indent on " Enable file type detection and do language-dependent indenting
+
