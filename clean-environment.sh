@@ -12,7 +12,7 @@ remove_if_installed() {
 echo "Starting cleanup process..."
 
 # Remove utility packages
-packages=(bat fzf xclip ripgrep neofetch jq tldr nodejs npm zsh)
+packages=(bat fzf xclip ripgrep neofetch jq nodejs npm zsh)
 for package in "${packages[@]}"; do
     remove_if_installed "$package"
 done
@@ -55,11 +55,11 @@ for file in "$HOME"/.*; do
 done
 
 # Remove folders
-rm -rf ~/projects
 rm -rf ~/tomato
 
 # remove tmux sessionizer
 rm ~/tmux-sessionizer.sh
+rm ~/cht.sh
 
 # Remove Neovim
 sudo rm -f /usr/local/bin/nvim

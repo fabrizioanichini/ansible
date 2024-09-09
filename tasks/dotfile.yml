@@ -6,7 +6,9 @@
 - name: Copying dotfiles to $HOME
   ansible.builtin.copy:
     src: ../env/
-    dest: "{{ home }}"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    dest: "{{ ansible_env.HOME }}"
+    owner: "{{ lookup('env', 'USER') }}"
+    group: "{{ lookup('env', 'USER') }}"
     mode: '0755'
+  tags: 
+    - update-dotfiles

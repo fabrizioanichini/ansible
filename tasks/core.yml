@@ -6,8 +6,7 @@
       - xclip
       - ripgrep
       - neofetch
-      - jq
-      - tldr
+      - jq 
       - taskwarrior
     state: present
     update_cache: yes
