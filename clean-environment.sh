@@ -56,6 +56,7 @@ done
 
 # Remove folders
 rm -rf ~/tomato
+rm -rf ~/projects/macOs-configs
 
 # remove tmux sessionizer
 rm ~/tmux-sessionizer.sh

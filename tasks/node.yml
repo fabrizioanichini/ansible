@@ -16,3 +16,11 @@
   tags:
     - install
     - node
+
+- name: Install tldr globally
+  npm:
+    name: tldr
+    global: yes
+  tags:
+    - node-packages
+

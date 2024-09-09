@@ -108,3 +108,6 @@ export PATH=$HOME/.local/bin:$PATH
 
 # Tmux sessionizer
 bindkey -s '^F' 'source ~/tmux-sessionizer.sh\n'
+
+# Cheatsheet shortcut
+bindkey "^G" 'bash ~/cht.sh'
