@@ -32,28 +32,3 @@ This will install Ansibile and its dependencies on the Ubuntu system.
 ansible-playbook local.yml --ask-become-pass --ask-vault-pass
 ```
 
-## Further Development 
-
-If you want to test or develop the Ansible playbooks in an isolated environment, you can use Docker. This section explains how to set up and use the Docker-based environment.
-
-Before you start, ensure you have the following installed on your system:
-
-- [Docker](https://docs.docker.com/get-docker/)
-
-### 1. Build Docker Container
-
-```bash
-docker build -t my-ansible-env .
-```
-
-### 2. Run the container
-
-```bash
-docker run -it -e USER=root -e HOME=/root my-ansible-env
-```
-
-### 3. Run Ansible playbook
-
-```bash
-ansible-playbook local.yml --ask-become-pass --ask-vault-pass
-```
