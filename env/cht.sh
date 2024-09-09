@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 languages=$(echo "php typescript python javascript html css" | tr " "  "\n")
-core_utils=$(echo "find sed awk ls bat cat"| tr " " "\n")
+core_utils=$(echo "find read tr git echo sed awk ls bat cat"| tr " " "\n")
 selected=$(echo -e "$languages\n$core_utils" | fzf)
 
 read -p "GIVE ME YOUR QUERY: " query
