@@ -12,7 +12,7 @@ remove_if_installed() {
 echo "Starting cleanup process..."
 
 # Remove utility packages
-packages=(bat fzf xclip ripgrep neofetch jq nodejs npm zsh)
+packages=(bat fzf xclip ripgrep neofetch jq nodejs npm zsh unzip gcc ripgrep make)
 for package in "${packages[@]}"; do
     remove_if_installed "$package"
 done

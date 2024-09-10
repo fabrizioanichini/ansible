@@ -8,6 +8,10 @@
       - neofetch
       - jq 
       - taskwarrior
+      - unzip
+      - gcc
+      - make
+      - ripgrep
     state: present
     update_cache: yes
 
