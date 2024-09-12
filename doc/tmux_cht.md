@@ -19,9 +19,9 @@ Feautures of our current tmux conf:
 ```
 3. Moving panes vim styles
 
-| action   | Key                |
-|:---------|:-------------------|
-| Up       | <controll> b + k   |
-| Down     | <controll> b + j   |
-| Right    | <controll> b + l   |
-| Left     | <controll> b + h   |
+| action   | Key              |
+|:---------|:-----------------|
+| Up       | controll b + k   |
+| Down     | controll b + j   |
+| Right    | controll b + l   |
+| Left     | controll b + h   |
