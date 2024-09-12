@@ -1,6 +1,15 @@
+- name: Wait for apt lock to be released
+  shell: while fuser /var/lib/dpkg/lock >/dev/null 2>&1 || fuser /var/lib/apt/lists/lock >/dev/null 2>&1; do sleep 1; done
+  become: yes
+  tags:
+    - node
+
 - name: Install nodejs and npm
   apt:
     name: ["nodejs", "npm"]
+    state: present
+    update_cache: yes
+  become: yes
   tags:
     - node
 
@@ -8,11 +17,13 @@
   npm:
     name: n
     global: yes
+  become: yes
   tags:
     - node
 
 - name: Install LTS version of Node
   shell: n lts 
+  become: yes
   tags:
     - node
 
@@ -20,6 +31,6 @@
   npm:
     name: tldr
     global: yes
+  become: yes
   tags:
     - node
-
