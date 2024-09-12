@@ -107,4 +107,4 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$HOME/.local/bin:$PATH
 
 # Tmux sessionizer
-bindkey -s '^F' 'source ~/tmux-sessionizer.sh\n'
+bindkey -s '^J' 'source ~/tmux-sessionizer.sh\n'
