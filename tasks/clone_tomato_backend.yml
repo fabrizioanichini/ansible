@@ -72,6 +72,8 @@
   args:
     chdir: "{{ ansible_env.HOME }}/tomato/back"
   register: docker_build_output
+  tags:
+    - docker-build
 
 - name: Debug Docker build output
   debug:

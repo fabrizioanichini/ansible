@@ -39,6 +39,38 @@
     path: "{{ neovim_temp_dir.path }}"
     state: absent
 
+- name: Check .local directory ownership and permissions
+  stat:
+    path: "{{ ansible_env.HOME }}/.local"
+  register: local_dir_stat
+
+- name: Ensure .local directory has correct permissions
+  become: yes
+  file:
+    path: "{{ ansible_env.HOME }}/.local"
+    state: directory
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    mode: '0700'
+  when: local_dir_stat.stat.exists and (local_dir_stat.stat.pw_name != ansible_env.USER or local_dir_stat.stat.mode != '0700')
+
+- name: Ensure .local/state directory exists with correct permissions
+  file:
+    path: "{{ ansible_env.HOME }}/.local/state"
+    state: directory
+    mode: '0700'
+
+- name: Ensure correct permissions for Neovim directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0700'
+    recurse: yes
+  loop:
+    - "{{ ansible_env.HOME }}/.local/share/nvim"
+    - "{{ ansible_env.HOME }}/.local/state/nvim"
+    - "{{ ansible_env.HOME }}/.cache/nvim"
+
 - name: Check if Neovim config directory exists
   stat:
     path: "{{ ansible_env.HOME }}/.config/nvim"

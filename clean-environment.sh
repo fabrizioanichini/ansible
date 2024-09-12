@@ -12,7 +12,7 @@ remove_if_installed() {
 echo "Starting cleanup process..."
 
 # Remove utility packages
-packages=(bat fzf xclip ripgrep neofetch jq nodejs npm zsh unzip gcc ripgrep make)
+packages=(vim-gtk3 chafa bat fzf xclip ripgrep neofetch jq taskwarrior unzip gcc make ripgrep zsh nodejs npm )
 for package in "${packages[@]}"; do
     remove_if_installed "$package"
 done
@@ -68,10 +68,9 @@ sudo rm -rf /usr/local/share/nvim
 sudo rm -rf /usr/local/lib/nvim
 
 # Remove LazyVim configurations
-rm -rf ~/.config/nvim
-rm -rf ~/.local/share/nvim
-rm -rf ~/.local/state/nvim
-rm -rf ~/.cache/nvim
+rm -rf ~/.config
+rm -rf ~/.cache
+rm -rf ~/.local
 
 # Reset default shell to bash
 sudo chsh -s /bin/bash "$USER"

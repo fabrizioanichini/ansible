@@ -29,7 +29,15 @@ This will install Ansibile and its dependencies on the Ubuntu system.
 ### 4. Run Ansible playbook
 
 ```bash
-ansible-playbook local.yml --ask-become-pass --ask-vault-pass
+ansible-playbook local.yml --ask-vault-pass
+```
+
+## Utilities
+
+You may want to  exclude the docker mounting for testing
+
+```bash
+ansible-playbook local.yml --ask-vault-pass --skip-tags "docker-build"
 ```
 
 ##  Documentations
