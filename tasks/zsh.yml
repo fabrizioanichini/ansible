@@ -3,20 +3,14 @@
     home: "{{ lookup('env', 'HOME') }}"
     username: "{{ lookup('env', 'USER') }}"
   tags:
-    - install
-    - productivity
-    - dotfiles
     - zsh
 
 - name: Install ZSH
-  apt: 
+  apt:
     name: zsh
     state: present
   become: yes
   tags:
-    - install
-    - productivity
-    - dotfiles
     - zsh
 
 - name: Get zsh path
@@ -24,9 +18,6 @@
   register: zsh_path
   changed_when: false
   tags:
-    - install
-    - productivity
-    - dotfiles
     - zsh
 
 - name: Install Oh-My-Zsh
@@ -35,9 +26,6 @@
     dest: "{{ home }}/.oh-my-zsh"
     depth: 1
   tags:
-    - install
-    - productivity
-    - dotfiles
     - zsh
 
 - name: Install zsh-autosuggestions plugin
@@ -45,16 +33,18 @@
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
     dest: "{{ home }}/.oh-my-zsh/plugins/zsh-autosuggestions"
   tags:
-    - install
-    - productivity
-    - dotfiles
+    - zsh
+
+- name: Set Zsh as default shell
+  user:
+    name: "{{ username }}"
+    shell: "{{ zsh_path.stdout }}"
+  become: yes
+  tags:
     - zsh
 
 - name: Display completion message
   ansible.builtin.debug:
-    msg: "Zsh setup is complete! Please open a new terminal session for the changes to take effect."
+    msg: "Zsh setup is complete and set as your default shell! Please log out and log back in for the changes to take effect."
   tags:
-    - install
-    - productivity
-    - dotfiles
     - zsh

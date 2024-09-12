@@ -3,12 +3,17 @@
     url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
     dest: /tmp/nvim-linux64.tar.gz
   become: true
+  tags: 
+    - nvim
+
 
 - name: Remove existing Neovim installation
   file:
     path: /opt/nvim
     state: absent
   become: true
+  tags: 
+    - nvim
 
 - name: Extract Neovim archive to /opt
   unarchive:
@@ -16,6 +21,9 @@
     dest: /opt
     remote_src: yes
   become: true
+  tags: 
+    - nvim
+
 
 - name: Add Neovim to PATH in .zshrc
   lineinfile:
@@ -23,9 +31,14 @@
     line: 'export PATH="$PATH:/opt/nvim-linux64/bin"'
     state: present
   become: false
+  tags: 
+    - nvim
+
 
 - name: Clean up downloaded archive
   file:
     path: /tmp/nvim-linux64.tar.gz
     state: absent
   become: true
+  tags: 
+    - nvim
