@@ -1,6 +1,7 @@
 - name: Ensure utility packages are installed
   apt:
     name:
+      - vim-gtk3
       - bat
       - fzf
       - xclip

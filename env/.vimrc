@@ -9,6 +9,7 @@ endif
 set scrolloff=8           " Keep 8 lines visible above/below the cursor when scrolling
 set number                " Show line numbers
 set relativenumber        " Show relative line numbers for easier navigation
+set clipboard=unnamedplus " Use system clipboard for all yank, delete, change, and put operations
 
 " ----------- Tab and Indentation Settings -----------
 set tabstop=4             " Set width for a tab character
@@ -16,6 +17,19 @@ set softtabstop=4         " Set width for editing as if tabs are 4 spaces
 set shiftwidth=4          " Number of spaces for auto-indent
 set expandtab             " Convert tabs to spaces
 set smartindent           " Automatically indent new lines in a smart way
+
+" ----------- Search Settings -----------
+set ignorecase            " Ignore case in search patterns
+set smartcase             " Override ignorecase if search pattern contains uppercase letters
+set hlsearch              " Highlight all matches of the search pattern
+set incsearch             " Show match for partly typed search command
+
+" ----------- Backup and Swap File Settings -----------
+set nobackup              " Disable creation of backup files
+set noswapfile            " Disable creation of swap files
+
+" ----------- Performance Settings -----------
+set lazyredraw            " Don't redraw the screen during macros (for performance)
 
 " ----------- Interface and Colors -----------
 set mouse=a               " Enable mouse support in all modes
@@ -52,22 +66,18 @@ nnoremap <C-p> :Files<CR> |                " Open fuzzy file finder (Files) with
 nnoremap <C-j> :cnext<CR> " Go to the next item in the quickfix list with Ctrl-j
 nnoremap <C-k> :cprev<CR> " Go to the previous item in the quickfix list with Ctrl-k
 
-" ----------- Clipboard Integration -----------
-nnoremap <leader>y "+y    " Yank (copy) to the system clipboard with <leader>y
-set clipboard=unnamedplus " Use system clipboard for all yank, delete, change, and put operations
+" ----------- Clipboard Operations -----------
+" Copy to clipboard
+vnoremap <leader>y "+y    " Copy selected text to system clipboard in visual mode
+nnoremap <leader>y "+y    " Copy from cursor to motion/text object to system clipboard in normal mode
+nnoremap <leader>Y "+yg_  " Copy from cursor to end of line (not including line break) to system clipboard
+nnoremap <leader>yy "+yy  " Copy entire line to system clipboard
 
-" ----------- Search Settings -----------
-set ignorecase            " Ignore case in search patterns
-set smartcase             " Override ignorecase if search pattern contains uppercase letters
-set hlsearch              " Highlight all matches of the search pattern
-set incsearch             " Show match for partly typed search command
-
-" ----------- Backup and Swap File Settings -----------
-set nobackup              " Disable creation of backup files
-set noswapfile            " Disable creation of swap files
-
-" ----------- Performance Settings -----------
-set lazyredraw            " Don't redraw the screen during macros (for performance)
+" Paste from clipboard
+nnoremap <leader>p "+p    " Paste system clipboard after cursor in normal mode
+nnoremap <leader>P "+P    " Paste system clipboard before cursor in normal mode
+vnoremap <leader>p "+p    " Paste system clipboard after selection in visual mode
+vnoremap <leader>P "+P    " Paste system clipboard before selection in visual mode
 
 " ----------- File Type Specific Settings -----------
 filetype plugin indent on " Enable file type detection and do language-dependent indenting
