@@ -1,33 +1,40 @@
 - name: Debug SSH config for tomatoai
   shell: cat {{ ansible_env.HOME }}/.ssh/config
   register: ssh_config_content
+  tags: tomato
 
 - name: Show SSH config for tomatoai
   debug:
     var: ssh_config_content.stdout_lines
+  tags: tomato
 
 - name: Debug tomatoai SSH key permissions
   shell: ls -l {{ ansible_env.HOME }}/.ssh/tomatoai_rsa
   register: ssh_key_permissions
+  tags: tomato
 
 - name: Show tomatoai SSH key permissions
   debug:
     var: ssh_key_permissions.stdout_lines
+  tags: tomato
 
 - name: Test SSH connection to GitHub for tomatoai
   shell: ssh -T git@github.com-tomatoai
   register: ssh_test
   ignore_errors: yes
+  tags: tomato
 
 - name: Debug SSH test output for tomatoai
   debug:
     var: ssh_test
+  tags: tomato
 
 - name: Ensure tomato directory exists
   file:
     path: "{{ ansible_env.HOME }}/tomato"
     state: directory
     mode: '0755'
+  tags: tomato
 
 - name: Clone tomato-frontend-2.0 repository
   git:
@@ -38,10 +45,12 @@
   environment:
     GIT_SSH_COMMAND: "ssh -vvv"
   register: git_clone_result
+  tags: tomato
 
 - name: Debug Git clone result for tomato-frontend
   debug:
     var: git_clone_result
+  tags: tomato
 
 - name: Clone private Gist for .env file
   git:
@@ -52,22 +61,27 @@
   environment:
     GIT_SSH_COMMAND: "ssh -vvv"
   register: gist_clone_result
+  tags: tomato
 
 - name: Debug Gist clone result
   debug:
     var: gist_clone_result
+  tags: tomato
 
 - name: Copy .env file from cloned Gist
   command: cp gist_env/.env .env
   args:
     chdir: "{{ ansible_env.HOME }}/tomato/front"
+  tags: tomato
 
 - name: Remove Gist directory
   file:
     path: "{{ ansible_env.HOME }}/tomato/front/gist_env"
     state: absent
+  tags: tomato
 
 - name: Run npm install in the front directory
   command: npm install
   args:
     chdir: "{{ ansible_env.HOME }}/tomato/front"
+  tags: tomato

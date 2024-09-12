@@ -7,6 +7,8 @@
       [includeIf "gitdir:~/tomatoai/"]
           path = ~/.gitconfig-tomatoai
     create: yes
+  tags: 
+    - git-config
 
 - name: Create Git configuration for proton
   copy:
@@ -15,6 +17,8 @@
       [user]
           name = Fabrizio Anichini
           email = fabrizioanichini@proton.me
+  tags: 
+    - git-config
 
 - name: Create Git configuration for tomatoai
   copy:
@@ -23,3 +27,5 @@
       [user]
           name = Fabrizio Anichini
           email = fabrizioanichini@tomatoai.it
+  tags: 
+    - git-config
