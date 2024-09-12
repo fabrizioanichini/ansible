@@ -3,20 +3,14 @@
     home: "{{ lookup('env', 'HOME') }}"
     username: "{{ lookup('env', 'USER') }}"
   tags:
-    - install
-    - productivity
-    - dotfiles
     - zsh
 
 - name: Install ZSH
-  apt: 
+  apt:
     name: zsh
     state: present
   become: yes
   tags:
-    - install
-    - productivity
-    - dotfiles
     - zsh
 
 - name: Get zsh path
@@ -24,9 +18,6 @@
   register: zsh_path
   changed_when: false
   tags:
-    - install
-    - productivity
-    - dotfiles
     - zsh
 
 - name: Set Zsh as the default shell for the user
@@ -35,9 +26,6 @@
     shell: "{{ zsh_path.stdout }}"
   become: yes
   tags:
-    - install
-    - productivity
-    - dotfiles
     - zsh
 
 - name: Install Oh-My-Zsh
@@ -46,9 +34,6 @@
     dest: "{{ home }}/.oh-my-zsh"
     depth: 1
   tags:
-    - install
-    - productivity
-    - dotfiles
     - zsh
 
 - name: Install zsh-autosuggestions plugin
@@ -56,16 +41,28 @@
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
     dest: "{{ home }}/.oh-my-zsh/plugins/zsh-autosuggestions"
   tags:
-    - install
-    - productivity
-    - dotfiles
+    - zsh
+
+
+- name: Check current shell
+  ansible.builtin.command: echo $SHELL
+  register: current_shell
+  changed_when: false
+  tags:
+    - zsh
+
+- name: Display current shell
+  ansible.builtin.debug:
+    var: current_shell.stdout
+  tags:
     - zsh
 
 - name: Display completion message
   ansible.builtin.debug:
-    msg: "Zsh setup is complete! Please open a new terminal session for the changes to take effect."
+    msg: 
+      - "Zsh setup is complete and set as your default shell using chsh!"
+      - "Current shell is: {{ current_shell.stdout }}"
+      - "Please log out and log back in for the changes to take effect."
+      - "If you're still seeing bash after logging out and back in, please check your terminal settings to ensure it's using the login shell."
   tags:
-    - install
-    - productivity
-    - dotfiles
     - zsh
