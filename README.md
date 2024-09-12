@@ -33,4 +33,5 @@ ansible-playbook local.yml --ask-become-pass --ask-vault-pass
 ```
 
 ##  Documentations
-* [Bash Shortcuts](./doc/01.bash_shortcuts_v2.md)
+* [Bash Shortcuts](./doc/bash_shortcuts.md)
+* [Vim Cheatsheet](./doc/vim_cht.md)
