@@ -49,13 +49,11 @@
         - git-config
 
     - include_tasks: tasks/clone_macos_config.yml
-      tag:
-        - example
 
     - include_tasks: tasks/clone_tomato_frontend.yml
       tags:
         - tomato
-        
+
     - include_tasks: tasks/clone_tomato_backend.yml
       tags:
         - tomato
