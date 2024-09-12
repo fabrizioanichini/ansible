@@ -32,6 +32,10 @@
       tags:
         - nvim
 
+    - include_tasks: tasks/node.yml
+      tags:
+        - node
+
     # - include_tasks: tasks/copy_keys.yml
     # - include_tasks: tasks/setup_ssh.yml
     # - include_tasks: tasks/git-config.yml
