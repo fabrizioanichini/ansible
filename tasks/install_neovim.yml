@@ -41,15 +41,6 @@
   tags: 
     - nvim
 
-- name: Add Neovim to PATH in .zshrc
-  lineinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
-    line: 'export PATH="$PATH:/opt/nvim-linux64/bin"'
-    state: present
-  become: false
-  tags: 
-    - nvim
-
 - name: Clean up downloaded archive
   file:
     path: /tmp/nvim-linux64.tar.gz
