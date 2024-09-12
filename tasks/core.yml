@@ -1,4 +1,5 @@
 - name: Ensure utility packages are installed
+  become: yes
   apt:
     name:
       - vim-gtk3
