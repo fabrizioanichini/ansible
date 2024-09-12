@@ -35,16 +35,33 @@
   tags:
     - zsh
 
-- name: Set Zsh as default shell
-  user:
-    name: "{{ username }}"
-    shell: "{{ zsh_path.stdout }}"
+- name: Change default shell to Zsh using chsh
+  ansible.builtin.command: chsh -s "{{ zsh_path.stdout }}"
   become: yes
+  become_user: "{{ username }}"
+  changed_when: true
+  tags:
+    - zsh
+
+- name: Check current shell
+  ansible.builtin.command: echo $SHELL
+  register: current_shell
+  changed_when: false
+  tags:
+    - zsh
+
+- name: Display current shell
+  ansible.builtin.debug:
+    var: current_shell.stdout
   tags:
     - zsh
 
 - name: Display completion message
   ansible.builtin.debug:
-    msg: "Zsh setup is complete and set as your default shell! Please log out and log back in for the changes to take effect."
+    msg: 
+      - "Zsh setup is complete and set as your default shell using chsh!"
+      - "Current shell is: {{ current_shell.stdout }}"
+      - "Please log out and log back in for the changes to take effect."
+      - "If you're still seeing bash after logging out and back in, please check your terminal settings to ensure it's using the login shell."
   tags:
     - zsh

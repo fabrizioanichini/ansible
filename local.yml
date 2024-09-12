@@ -15,6 +15,11 @@
         dest_pub_key: "{{ ansible_env.HOME }}/.ssh/tomatoai_rsa.pub"
         gist_host: "gist.github.com-tomatoai"
   tasks:
+
+    - include_tasks: tasks/core.yml
+      tags:
+        - core
+
     - include_tasks: tasks/zsh.yml
       tags:
         - zsh
@@ -26,7 +31,7 @@
     - include_tasks: tasks/install_neovim.yml
       tags:
         - nvim
-        
+
     # - include_tasks: tasks/copy_keys.yml
     # - include_tasks: tasks/setup_ssh.yml
     # - include_tasks: tasks/git-config.yml

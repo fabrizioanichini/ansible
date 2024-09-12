@@ -16,15 +16,5 @@
       - ripgrep
     state: present
     update_cache: yes
-
-- name: Ensure ~/.local/bin directory exists
-  file:
-    path: "{{ ansible_env.HOME }}/.local/bin"
-    state: directory
-    mode: '0755'
-
-- name: Create a symlink for bat
-  file:
-    src: /usr/bin/batcat
-    dest: "{{ ansible_env.HOME }}/.local/bin/bat"
-    state: link
+  tags: 
+    - update-dotfiles
