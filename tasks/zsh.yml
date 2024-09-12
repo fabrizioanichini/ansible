@@ -20,6 +20,14 @@
   tags:
     - zsh
 
+- name: Set Zsh as the default shell for the user
+  ansible.builtin.user:
+    name: "{{ username }}"
+    shell: "{{ zsh_path.stdout }}"
+  become: yes
+  tags:
+    - zsh
+
 - name: Install Oh-My-Zsh
   ansible.builtin.git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
@@ -35,13 +43,6 @@
   tags:
     - zsh
 
-- name: Change default shell to Zsh using chsh
-  ansible.builtin.command: chsh -s "{{ zsh_path.stdout }}"
-  become: yes
-  become_user: "{{ username }}"
-  changed_when: true
-  tags:
-    - zsh
 
 - name: Check current shell
   ansible.builtin.command: echo $SHELL
