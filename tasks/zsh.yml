@@ -29,17 +29,6 @@
     - dotfiles
     - zsh
 
-- name: Set Zsh as the default shell for the user
-  ansible.builtin.user:
-    name: "{{ username }}"
-    shell: "{{ zsh_path.stdout }}"
-  become: yes
-  tags:
-    - install
-    - productivity
-    - dotfiles
-    - zsh
-
 - name: Install Oh-My-Zsh
   ansible.builtin.git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git

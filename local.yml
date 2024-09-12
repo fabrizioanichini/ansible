@@ -15,29 +15,16 @@
         dest_pub_key: "{{ ansible_env.HOME }}/.ssh/tomatoai_rsa.pub"
         gist_host: "gist.github.com-tomatoai"
   tasks:
-    - name: Tasks requiring root privileges
-      block:
-        - name: Update repositories
-          apt:
-            update_cache: yes
-          changed_when: False
-
-        - include_tasks: tasks/core.yml
-        - include_tasks: tasks/node.yml
-      become: true
-
-    - name: Tasks running as regular user
-      block:
-        - include_tasks: tasks/install_neovim.yml
-        - include_tasks: tasks/dotfile.yml
-          tags:
-            - update-dotfiles
-        - include_tasks: tasks/zsh.yml
-        - include_tasks: tasks/copy_keys.yml
-        - include_tasks: tasks/setup_ssh.yml
-        - include_tasks: tasks/git-config.yml
-        - include_tasks: tasks/clone_macos_config.yml
-        - include_tasks: tasks/clone_tomato_frontend.yml
-        - include_tasks: tasks/clone_tomato_backend.yml
-          tags:
-            - docker-build
+    - include_tasks: tasks/install_neovim.yml
+    - include_tasks: tasks/dotfile.yml
+      tags:
+        - update-dotfiles
+    - include_tasks: tasks/zsh.yml
+    - include_tasks: tasks/copy_keys.yml
+    - include_tasks: tasks/setup_ssh.yml
+    - include_tasks: tasks/git-config.yml
+    - include_tasks: tasks/clone_macos_config.yml
+    - include_tasks: tasks/clone_tomato_frontend.yml
+    - include_tasks: tasks/clone_tomato_backend.yml
+      tags:
+        - docker-build
