@@ -32,3 +32,5 @@ This will install Ansibile and its dependencies on the Ubuntu system.
 ansible-playbook local.yml --ask-become-pass --ask-vault-pass
 ```
 
+##  Documentations
+* [Bash Shortcuts](./docs/01.bash_shortcuts_v2.md)
