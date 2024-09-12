@@ -68,9 +68,10 @@ sudo rm -rf /usr/local/share/nvim
 sudo rm -rf /usr/local/lib/nvim
 
 # Remove LazyVim configurations
-rm -rf ~/.config
-rm -rf ~/.cache
-rm -rf ~/.local
+rm -rf ~/.config/nvim
+rm -rf ~/.local/share/nvim
+rm -rf ~/.local/state/nvim
+rm -rf ~/.cache/nvim
 
 # Reset default shell to bash
 sudo chsh -s /bin/bash "$USER"
