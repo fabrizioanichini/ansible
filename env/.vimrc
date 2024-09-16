@@ -10,6 +10,7 @@ set scrolloff=8           " Keep 8 lines visible above/below the cursor when scr
 set number                " Show line numbers
 set relativenumber        " Show relative line numbers for easier navigation
 set clipboard=unnamedplus " Use system clipboard for all yank, delete, change, and put operations
+let g:netrw_list_hide=netrw_gitignore#Hide() " Tell NetRW to not hide all the files
 
 " ----------- Tab and Indentation Settings -----------
 set tabstop=4             " Set width for a tab character
