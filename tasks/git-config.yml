@@ -10,7 +10,7 @@
   tags: 
     - git-config
 
-- name: Create Git configuration for proton
+- name: Create Git configuration for Proton
   copy:
     dest: "{{ lookup('env', 'HOME') }}/.gitconfig-proton"
     content: |
@@ -20,7 +20,7 @@
   tags: 
     - git-config
 
-- name: Create Git configuration for tomatoai
+- name: Create Git configuration for Tomato AI
   copy:
     dest: "{{ lookup('env', 'HOME') }}/.gitconfig-tomatoai"
     content: |
@@ -28,4 +28,15 @@
           name = Fabrizio Anichini
           email = fabrizioanichini@tomatoai.it
   tags: 
+    - git-config
+
+- name: Set global Git configuration (fallback)
+  git_config:
+    name: "{{ item.name }}"
+    scope: global
+    value: "{{ item.value }}"
+  loop:
+    - { name: 'user.name', value: 'Fabrizio Anichini' }
+    - { name: 'user.email', value: 'fabrizioanichini@proton.me' }
+  tags:
     - git-config
