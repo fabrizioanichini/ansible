@@ -43,7 +43,6 @@
   tags:
     - zsh
 
-
 - name: Check current shell
   ansible.builtin.command: echo $SHELL
   register: current_shell
