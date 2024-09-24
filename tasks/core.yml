@@ -3,6 +3,8 @@
   apt:
     name:
       - vim-gtk3
+      - curl
+      - tmux
       - chafa
       - bat
       - fzf
