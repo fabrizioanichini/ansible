@@ -17,6 +17,8 @@
       - gcc
       - make
       - ripgrep
+      - sway
+      - swaylock
       - pipewire
       - pipewire-pulse
       - wireplumber
