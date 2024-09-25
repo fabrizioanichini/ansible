@@ -17,6 +17,9 @@
       - gcc
       - make
       - ripgrep
+      - pipewire
+      - pipewire-pulse
+      - wireplumber
     state: present
     update_cache: yes
   tags: 
