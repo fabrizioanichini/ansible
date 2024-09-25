@@ -1,13 +1,13 @@
 anchor = top
-width = 18%
-height = 24 
+width = 100%
+height = 28 
 horizontal = true
 font-size = 12 
 prompt-text = " run: "
-font = monospace
+font = "Overpass Nerd Font Regular"
 outline-width = 0
 border-width = 0
-background-color = #000000
+background-color = #323232
 min-input-width = 120
 result-spacing = 15
 padding-top = 0

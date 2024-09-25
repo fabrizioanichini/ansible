@@ -14,6 +14,8 @@ set $right l
 set $down j
 set $up k
 
+font "Overpass Nerd Font Regular 12"
+
 # Your preferred terminal emulator
 set $term foot
 # Your preferred application launcher
@@ -90,6 +92,9 @@ exec swaymsg "workspace 2; exec foot"
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+
+    # Lock Screen
+    bindsym $mod+Ctrl+l exec swaylock
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -235,6 +240,7 @@ bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position top
+    font "Overpass Nerd Font Regular 12"
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
