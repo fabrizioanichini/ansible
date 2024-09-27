@@ -31,7 +31,7 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg ~/.local/share/background/sway.png fill
 
 # Laptop Framework 
 output eDP-1 resolution 2256x1504 position 0,0
@@ -242,6 +242,10 @@ client.unfocused        #2C001E #2C001E #AEA79F #19B6EE #2C001E
 client.urgent           #772953 #772953 #ffffff #19B6EE #772953
 client.placeholder      #2C001E #2C001E #ffffff #19B6EE #2C001E
 client.background       #2C001E
+
+# Gaps
+gaps inner 10
+gaps outer 5
 
 
 include /etc/sway/config.d/*

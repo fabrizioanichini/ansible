@@ -32,10 +32,6 @@
       tags:
         - update-dotfiles
 
-    - include_tasks: tasks/background.yml
-      tags:
-        - style
-
     - include_tasks: tasks/node.yml
       tags:
         - node
