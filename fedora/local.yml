@@ -3,15 +3,15 @@
   vars:
     ssh_keys:
       - name: "proton"
-        src_key: "./.ssh/proton_rsa"
+        src_key: "../.ssh/proton_rsa"
         dest_key: "{{ ansible_env.HOME }}/.ssh/proton_rsa"
-        src_pub_key: "./.ssh/proton_rsa.pub"
+        src_pub_key: "../.ssh/proton_rsa.pub"
         dest_pub_key: "{{ ansible_env.HOME }}/.ssh/proton_rsa.pub"
         gist_host: "gist.github.com-proton"
       - name: "tomatoai"
-        src_key: "./.ssh/tomatoai_rsa"
+        src_key: "../.ssh/tomatoai_rsa"
         dest_key: "{{ ansible_env.HOME }}/.ssh/tomatoai_rsa"
-        src_pub_key: "./.ssh/tomatoai_rsa.pub"
+        src_pub_key: "../.ssh/tomatoai_rsa.pub"
         dest_pub_key: "{{ ansible_env.HOME }}/.ssh/tomatoai_rsa.pub"
         gist_host: "gist.github.com-tomatoai"
   tasks:
