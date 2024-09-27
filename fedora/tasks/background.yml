@@ -1,0 +1,8 @@
+- name: Set the background image in sway configuration
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.config/sway/config"
+    regexp: '^output \* bg '
+    line: 'output * bg {{ ansible_env.HOME }}/.local/share/background/sway.jpg fill'
+    create: yes
+  notify: Reload sway configuration
+

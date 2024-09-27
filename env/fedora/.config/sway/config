@@ -225,11 +225,23 @@ bar {
 
     colors {
         statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        background #2C001E      
+        focused_workspace  #E95420 #E95420 #ffffff
+        active_workspace   #5E2750 #5E2750 #ffffff 
+        inactive_workspace #2C001E #2C001E #AEA79F  
+        urgent_workspace   #772953 #772953 #ffffff  
     }
 }
 
 font "Overpass Nerd Font Regular 12"
+
+# Client colors
+client.focused          #E95420 #E95420 #ffffff #19B6EE #E95420
+client.focused_inactive #5E2750 #5E2750 #ffffff #19B6EE #5E2750
+client.unfocused        #2C001E #2C001E #AEA79F #19B6EE #2C001E
+client.urgent           #772953 #772953 #ffffff #19B6EE #772953
+client.placeholder      #2C001E #2C001E #ffffff #19B6EE #2C001E
+client.background       #2C001E
+
 
 include /etc/sway/config.d/*
