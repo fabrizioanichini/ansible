@@ -2,6 +2,7 @@
   become: yes
   dnf:
     name:
+      - zsh
       - vim-enhanced
       - curl
       - tmux
