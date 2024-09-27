@@ -1,28 +1,21 @@
 - name: Ensure utility packages are installed
   become: yes
-  apt:
+  dnf:
     name:
-      - vim-gtk3
+      - zsh
+      - vim-enhanced
       - curl
       - tmux
-      - chafa
-      - bat
       - fzf
       - xclip
       - ripgrep
-      - neofetch
-      - jq 
-      - taskwarrior
+      - fastfetch 
+      - jq
       - unzip
       - gcc
       - make
-      - ripgrep
       - sway
-      - swaylock
-      - pipewire
-      - pipewire-pulse
-      - wireplumber
     state: present
     update_cache: yes
-  tags: 
-    - update-dotfiles
+  tags:
+    - update-dotfile

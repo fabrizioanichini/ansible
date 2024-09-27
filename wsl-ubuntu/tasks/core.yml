@@ -1,0 +1,21 @@
+- name: Ensure utility packages are installed
+  become: yes
+  apt:
+    name:
+      - zsh
+      - vim-gtk3
+      - curl
+      - tmux
+      - fzf
+      - xclip
+      - ripgrep
+      - neofetch
+      - jq 
+      - unzip
+      - gcc
+      - make
+      - ripgrep
+    state: present
+    update_cache: yes
+  tags: 
+    - update-dotfiles
