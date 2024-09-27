@@ -13,6 +13,9 @@
       - jq
       - unzip
       - sway
+      - grim
+      - slurp
+      - wl-copy
     state: present
     update_cache: yes
   tags:

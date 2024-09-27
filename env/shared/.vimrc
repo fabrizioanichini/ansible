@@ -57,12 +57,11 @@ Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " ----------- Key Mappings -----------
-let mapleader = " "                        " Remap the leader key to <space-bar>  
-nnoremap <leader>pv :Ex<CR> |               " Open the file explorer (Ex) with <leader>p
-nnoremap <leader>pvv :Vex<CR> |             " Open the file explorer splitting the window vertically 
-nnoremap <leader><CR> :so ~/.vimrc<CR> |   " Source (reload) .vimrc with <leader><CR>
+let mapleader = " "                        " Remap the leader key to 
+nnoremap <leader>e :Ex<CR> |               " Open the file explorer (Ex) 
+nnoremap <leader><CR> :so ~/.vimrc<CR> |   " Source (reload) .vimrc with 
 nnoremap <C-6> ^ |                         " Remap Ctrl-6 to switch to the previous buffer
-nnoremap <C-p> :Files<CR> |                " Open fuzzy file finder (Files) with Ctrl-p
+nnoremap <leader>ff :Files<CR> |                " Open fuzzy file finder (Files) 
 
 " ----------- Quickfix Navigation -----------
 nnoremap <C-j> :cnext<CR> " Go to the next item in the quickfix list with Ctrl-j
