@@ -20,6 +20,10 @@
       tags:
         - core
 
+    - include_tasks: ../tasks/zsh.yml
+      tags:
+        - zsh
+      
     - include_tasks: tasks/fonts.yml
       tags:
         - fonts

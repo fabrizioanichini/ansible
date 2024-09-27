@@ -20,7 +20,7 @@
       tags:
         - core
 
-    - include_tasks: tasks/zsh.yml
+    - include_tasks: ../tasks/zsh.yml
       tags:
         - zsh
 
