@@ -36,25 +36,25 @@
       tags:
         - node
 
-    - include_tasks: tasks/copy_keys.yml
+    - include_tasks: ../tasks/copy_keys.yml
       tags:
         - ssh
 
-    - include_tasks: tasks/setup_ssh.yml
+    - include_tasks: ../tasks/setup_ssh.yml
       tags:
         - ssh
 
-    - include_tasks: tasks/git-config.yml
+    - include_tasks: ../tasks/git-config.yml
       tags:
         - git-config
 
-    - include_tasks: tasks/clone_macos_config.yml
+    - include_tasks: ../tasks/clone_macos_config.yml
 
-    - include_tasks: tasks/clone_tomato_frontend.yml
+    - include_tasks: ../tasks/clone_tomato_frontend.yml
       tags:
         - tomato
 
-    - include_tasks: tasks/clone_tomato_backend.yml
+    - include_tasks: ../tasks/clone_tomato_backend.yml
       tags:
         - tomato
         - docker-build
