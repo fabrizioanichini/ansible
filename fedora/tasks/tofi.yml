@@ -1,0 +1,44 @@
+---
+- name: Ensure runtime dependencies are installed
+  become: yes  # Added here
+  dnf:
+    name:
+      - freetype-devel
+      - cairo-devel
+      - pango-devel
+      - wayland-devel
+      - libxkbcommon-devel
+      - harfbuzz
+    state: present
+
+- name: Ensure build-time dependencies are installed
+  become: yes  # Added here
+  dnf:
+    name:
+      - meson
+      - scdoc
+      - wayland-protocols-devel
+    state: present
+
+- block:
+    - name: Clone the tofi repository
+      git:
+        repo: https://github.com/philj56/tofi.git
+        dest: /tmp/tofi
+        update: yes
+
+    - name: Build and install tofi
+      shell: |
+        meson build
+        ninja -C build install
+      args:
+        chdir: /tmp/tofi
+
+    - name: Remove the tofi source code
+      file:
+        path: /tmp/tofi
+        state: absent
+        force: yes
+  become: yes  
+  tags: tofi_upgrade
+

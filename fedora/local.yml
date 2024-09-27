@@ -32,6 +32,10 @@
       tags:
         - update-dotfiles
 
+    - include_tasks: tasks/tofi.yml
+      tags:
+        - tofi
+
     - include_tasks: tasks/node.yml
       tags:
         - node
