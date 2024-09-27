@@ -44,8 +44,8 @@ bindswitch --reload --locked lid:on output eDP-1 disable
 bindswitch --reload --locked lid:off output eDP-1 enable 
 
 # Scale Display
-output DP-4 scale 1.5 
-output eDP-1 scale 1
+output DP-4 scale 1 
+output eDP-1 scale 1.5 
 
 ### Idle configuration
 #
@@ -229,5 +229,7 @@ bar {
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }
+
+font "Overpass Nerd Font Regular 12"
 
 include /etc/sway/config.d/*
