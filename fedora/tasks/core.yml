@@ -2,7 +2,6 @@
   become: yes
   dnf:
     name:
-      - zsh
       - vim-enhanced
       - curl
       - tmux
@@ -12,8 +11,6 @@
       - fastfetch 
       - jq
       - unzip
-      - gcc
-      - make
       - sway
     state: present
     update_cache: yes

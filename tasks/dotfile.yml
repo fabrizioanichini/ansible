@@ -1,14 +1,56 @@
+---
 - name: Define home and username variables
   set_fact:
     home: "{{ lookup('env', 'HOME') }}"
     username: "{{ lookup('env', 'USER') }}"
 
-- name: Copying dotfiles to $HOME
-  ansible.builtin.copy:
-    src: ../env/
-    dest: "{{ ansible_env.HOME }}"
-    owner: "{{ lookup('env', 'USER') }}"
-    group: "{{ lookup('env', 'USER') }}"
+- name: Ensure .config directory exists
+  file:
+    path: "{{ home }}/.config"
+    state: directory
+    mode: '0755'
+
+- name: Copy shared dotfiles (excluding .config)
+  copy:
+    src: "../env/shared/"
+    dest: "{{ home }}"
+    owner: "{{ username }}"
+    group: "{{ username }}"
     mode: '0755'
   tags: 
+    - update-dotfiles
+
+- name: Synchronize shared .config
+  synchronize:
+    src: "../env/shared/.config/"
+    dest: "{{ home }}/.config"
+  delegate_to: localhost
+  tags:
+    - update-dotfiles
+
+- name: Synchronize environment-specific .config
+  synchronize:
+    src: "../env/{{ env_type }}/.config/"
+    dest: "{{ home }}/.config"
+  delegate_to: localhost
+  when: env_type is defined
+  tags:
+    - update-dotfiles
+
+- name: Copy environment-specific dotfiles (excluding .config)
+  copy:
+    src: "../env/{{ env_type }}/"
+    dest: "{{ home }}"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0755'
+  when: env_type is defined
+  tags: 
+    - update-dotfiles
+
+- name: Debug message if env_type is not defined
+  debug:
+    msg: "env_type is not defined. Only shared dotfiles were copied."
+  when: env_type is not defined
+  tags:
     - update-dotfiles

@@ -10,7 +10,7 @@
       - xclip
       - ripgrep
       - neofetch
-      - jq 
+      - jq
       - unzip
       - gcc
       - make

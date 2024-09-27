@@ -20,7 +20,7 @@
       tags:
         - core
 
-    - include_tasks: ../tasks/zsh.yml
+    - include_tasks: tasks/zsh.yml
       tags:
         - zsh
 
@@ -28,7 +28,7 @@
       tags:
         - update-dotfiles
 
-    - include_tasks: ../tasks/install_neovim.yml
+    - include_tasks: tasks/install_neovim.yml
       tags:
         - nvim
 

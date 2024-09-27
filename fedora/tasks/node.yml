@@ -1,12 +1,8 @@
-- name: Wait for apt lock to be released
-  shell: while fuser /var/lib/dpkg/lock >/dev/null 2>&1 || fuser /var/lib/apt/lists/lock >/dev/null 2>&1; do sleep 1; done
-  become: yes
-  tags:
-    - node
-
 - name: Install nodejs and npm
   dnf:
-    name: ["nodejs", "npm"]
+    name: 
+      - nodejs
+      - npm
     state: present
     update_cache: yes
   become: yes
@@ -32,5 +28,12 @@
     name: tldr
     global: yes
   become: yes
+  tags:
+    - node
+
+- name: Refresh shell to recognize new Node version
+  shell: source ~/.bashrc
+  args:
+    executable: /bin/bash
   tags:
     - node
