@@ -1,0 +1,23 @@
+- name: Ensure .local/share/fonts directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.local/share/fonts"
+    state: directory
+    mode: '0755'
+  when: env_type == 'fedora'
+  tags:
+    - fonts
+
+- name: Synchronize fonts to .local/share/fonts
+  synchronize:
+    src: "{{ playbook_dir }}/env/fedora/.local/share/fonts/"
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts/"
+    delete: no
+  when: env_type == 'fedora'
+  tags:
+    - fonts
+
+- name: Update font cache
+  command: fc-cache -f -v
+  when: env_type == 'fedora'
+  tags:
+    - fonts
