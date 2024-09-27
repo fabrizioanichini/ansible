@@ -1,29 +1,23 @@
----
-- name: Define home and username variables
-  set_fact:
-    home: "{{ lookup('env', 'HOME') }}"
-    username: "{{ lookup('env', 'USER') }}"
-
 - name: Ensure .config directory exists
   file:
-    path: "{{ home }}/.config"
+    path: "{{ ansible_env.HOME }}/.config"
     state: directory
     mode: '0755'
 
 - name: Copy shared dotfiles (excluding .config)
   copy:
     src: "../env/shared/"
-    dest: "{{ home }}"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    dest: "{{ ansible_env.HOME }}"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
     mode: '0755'
-  tags: 
+  tags:
     - update-dotfiles
 
 - name: Synchronize shared .config
   synchronize:
     src: "../env/shared/.config/"
-    dest: "{{ home }}/.config"
+    dest: "{{ ansible_env.HOME }}/.config"
   delegate_to: localhost
   tags:
     - update-dotfiles
@@ -31,7 +25,7 @@
 - name: Synchronize environment-specific .config
   synchronize:
     src: "../env/{{ env_type }}/.config/"
-    dest: "{{ home }}/.config"
+    dest: "{{ ansible_env.HOME }}/.config"
   delegate_to: localhost
   when: env_type is defined
   tags:
@@ -40,12 +34,12 @@
 - name: Copy environment-specific dotfiles (excluding .config)
   copy:
     src: "../env/{{ env_type }}/"
-    dest: "{{ home }}"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    dest: "{{ ansible_env.HOME }}"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
     mode: '0755'
   when: env_type is defined
-  tags: 
+  tags:
     - update-dotfiles
 
 - name: Debug message if env_type is not defined
@@ -54,3 +48,4 @@
   when: env_type is not defined
   tags:
     - update-dotfiles
+
