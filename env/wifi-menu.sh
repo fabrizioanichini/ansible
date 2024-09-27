@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Function to set auto-connect for a network
+set_autoconnect() {
+    local ssid="$1"
+    nmcli connection modify "$ssid" connection.autoconnect yes
+    echo "Set $ssid to auto-connect."
+}
+
 # Function to connect to a WiFi network
 connect_to_wifi() {
     local ssid="$1"
@@ -23,9 +30,14 @@ selected=$(echo "$networks" | fzf --reverse --header="Select WiFi Network")
 # Extract SSID from selection
 ssid=$(echo "$selected" | awk '{print $1}')
 
-# If a network was selected, attempt to connect
 if [ -n "$ssid" ]; then
     connect_to_wifi "$ssid"
+    
+    echo -n "Do you want this network to auto-connect? (y/n): "
+    read auto_choice
+    if [[ $auto_choice == "y" || $auto_choice == "Y" ]]; then
+        set_autoconnect "$ssid"
+    fi
 else
     echo "No network selected."
 fi
