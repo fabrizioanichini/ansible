@@ -15,7 +15,7 @@
       - sway
       - grim
       - slurp
-      - wl-copy
+      - wl-clipboard
     state: present
     update_cache: yes
   tags:

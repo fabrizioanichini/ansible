@@ -1,6 +1,6 @@
 ---
 - name: Ensure runtime dependencies are installed
-  become: yes  # Added here
+  become: yes 
   dnf:
     name:
       - freetype-devel
@@ -12,7 +12,7 @@
     state: present
 
 - name: Ensure build-time dependencies are installed
-  become: yes  # Added here
+  become: yes  
   dnf:
     name:
       - meson

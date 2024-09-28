@@ -1,0 +1,44 @@
+---
+- name: Set logid config source path
+  set_fact:
+    logid_cfg_source: "{{ ansible_env.HOME }}/.local/share/logid.cfg"
+  tags: logiops
+
+- name: Check if logid.cfg exists in .local/share
+  stat:
+    path: "{{ logid_cfg_source }}"
+  register: logid_cfg_file
+  tags: logiops
+
+- name: Fail if logid.cfg is not found in .local/share
+  fail:
+    msg: "The logid.cfg file was not found at {{ logid_cfg_source }}."
+  when: not logid_cfg_file.stat.exists
+  tags: logiops
+
+- name: Copy logid.cfg to /etc
+  become: yes
+  copy:
+    src: "{{ logid_cfg_source }}"
+    dest: /etc/logid.cfg
+    owner: root
+    group: root
+    mode: '0644'
+  when: logid_cfg_file.stat.exists
+  tags: logiops
+
+- name: Ensure logid service is started and enabled
+  become: yes
+  systemd:
+    name: logid
+    state: started
+    enabled: yes
+  tags: logiops
+
+- name: Restart logid service
+  become: yes
+  systemd:
+    name: logid
+    state: restarted
+  tags: logiops
+

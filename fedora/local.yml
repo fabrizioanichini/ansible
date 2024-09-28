@@ -35,6 +35,10 @@
     - include_tasks: tasks/tofi.yml
       tags:
         - tofi
+        
+    - include_tasks: tasks/logiops.yml
+      tags:
+        - logiops
 
     - include_tasks: tasks/node.yml
       tags:
