@@ -116,6 +116,11 @@ input "PIXA3854:00 093A:0274 Touchpad" {
 
     # Screenshot
     bindsym Print exec grim -g "$(slurp)" - | wl-copy
+
+    # Screen Light
+    bindsym XF86MonBrightnessUp exec brightnessctl set +10%
+    bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
+
 #
 # Moving around:
 #
