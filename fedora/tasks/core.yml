@@ -7,8 +7,9 @@
       - curl
       - tmux
       - fzf
+      - xclip
       - ripgrep
-      - fastfetch 
+      - fastfetch
       - jq
       - unzip
       - sway
@@ -19,4 +20,14 @@
     state: present
     update_cache: yes
   tags:
-    - update-dotfile
+    - core
+
+- name: Add the user to the video group
+  become: yes
+  user:
+    name: "{{ ansible_env.USER }}"
+    groups: video
+    append: yes
+  tags:
+    - core
+
