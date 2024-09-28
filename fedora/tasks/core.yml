@@ -7,7 +7,6 @@
       - curl
       - tmux
       - fzf
-      - xclip
       - ripgrep
       - fastfetch 
       - jq
@@ -16,6 +15,7 @@
       - grim
       - slurp
       - wl-clipboard
+      - brightnessctl
     state: present
     update_cache: yes
   tags:
