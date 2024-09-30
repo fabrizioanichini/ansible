@@ -27,6 +27,16 @@
   when: logid_cfg_file.stat.exists
   tags: logiops
 
+- name: Ensure passwordless sudo for logid service
+  become: yes
+  lineinfile:
+    path: /etc/sudoers.d/{{ ansible_env.USER }}_logid
+    state: present
+    create: yes
+    line: "{{ ansible_env.USER }} ALL=(ALL) NOPASSWD: /usr/bin/systemctl start logid.service"
+    validate: 'visudo -cf %s'
+  tags: logiops
+
 - name: Ensure logid service is started and enabled
   become: yes
   systemd:

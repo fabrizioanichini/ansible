@@ -8,6 +8,8 @@
 exec gammastep -c ~/.config/gammastep/config
 exec swaymsg "workspace 1; exec firefox"
 exec swaymsg "workspace 2; exec foot"
+exec_always sudo systemctl start logid.service
+
 
 ### Variables
 #
