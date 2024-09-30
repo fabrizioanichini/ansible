@@ -4,19 +4,11 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-for_window [app_id="qutebrowser" title="ChatGPT"] {
-    move scratchpad
-    floating enable
-    resize set 800 600
-    move position 5296 1560  # Adjusted for bottom-right corner of HDMI LG
-}
-
 # Executions
 exec gammastep -c ~/.config/gammastep/config
 exec swaymsg "workspace 1; exec firefox"
 exec swaymsg "workspace 2; exec foot"
 exec_always sudo systemctl start logid.service
-exec qutebrowser https://chatgpt.com/
 
 ### Variables
 #
@@ -209,6 +201,7 @@ input "PIXA3854:00 093A:0274 Touchpad" {
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
+    
 #
 # Scratchpad:
 #
@@ -221,6 +214,16 @@ input "PIXA3854:00 093A:0274 Touchpad" {
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+    for_window [app_id="qutebrowser" title="ChatGPT"] {
+        move scratchpad
+        floating enable
+        resize set 800 600
+        move position 5296 1560 
+    }
+
+    exec qutebrowser https://chatgpt.com/
+
 #
 # Resizing containers:
 #
