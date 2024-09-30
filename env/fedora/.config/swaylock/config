@@ -1,5 +1,5 @@
 # Set background image
-image=/usr/share/backgrounds/sway/Sway_Wallpaper_Blue_2048x1536.png
+image=~/.local/share/background/sway.png 
 
 # Color of the lock screen (as a fallback if image fails)
 color=000000FF
