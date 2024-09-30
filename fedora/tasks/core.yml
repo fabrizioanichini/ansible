@@ -5,6 +5,7 @@
       - zsh
       - vim-enhanced
       - firefox
+      - nautilus
       - qutebrowser
       - curl
       - tmux
