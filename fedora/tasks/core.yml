@@ -4,6 +4,8 @@
     name:
       - zsh
       - vim-enhanced
+      - firefox
+      - qutebrowser
       - curl
       - tmux
       - fzf

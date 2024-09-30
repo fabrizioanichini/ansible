@@ -4,12 +4,19 @@
 #
 # Read `man 5 sway` for a complete reference.
 
+for_window [app_id="qutebrowser" title="ChatGPT"] {
+    move scratchpad
+    floating enable
+    resize set 800 600
+    move position 5296 1560  # Adjusted for bottom-right corner of HDMI LG
+}
+
 # Executions
 exec gammastep -c ~/.config/gammastep/config
 exec swaymsg "workspace 1; exec firefox"
 exec swaymsg "workspace 2; exec foot"
 exec_always sudo systemctl start logid.service
-
+exec qutebrowser https://chatgpt.com/
 
 ### Variables
 #
@@ -47,8 +54,8 @@ bindswitch --reload --locked lid:on output eDP-1 disable
 bindswitch --reload --locked lid:off output eDP-1 enable 
 
 # Scale Display
-output DP-4 scale 1.6 
-output eDP-1 scale 1.5 
+output DP-4 scale 2 
+output eDP-1 scale 2 
 
 ### Idle configuration
 #
