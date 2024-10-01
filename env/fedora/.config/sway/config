@@ -218,8 +218,7 @@ input "PIXA3854:00 093A:0274 Touchpad" {
     for_window [app_id="qutebrowser" title="ChatGPT"] {
         move scratchpad
         floating enable
-        resize set 800 600
-        move position 5296 1560 
+        resize set 400 600
     }
 
     exec qutebrowser https://chatgpt.com/
