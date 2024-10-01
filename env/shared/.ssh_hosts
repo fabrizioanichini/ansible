@@ -1,1 +1,1 @@
-Tomato-devasto: ssh -i .ssh/tomatoai_rsa root@164.90.170.238
+Tomato-devasto: ssh -i ~/.ssh/tomatoai_rsa root@164.90.170.238
