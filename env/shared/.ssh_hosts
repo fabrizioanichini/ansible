@@ -1,1 +1,6 @@
 Tomato-devasto: ssh -i ~/.ssh/tomatoai_rsa root@164.90.170.238
+Tomato-potato: ssh -i ~/.ssh/tomatoai_rsa root@64.226.85.26
+Tomato-stagno: ssh -i ~/.ssh/tomatoai_rsa root@134.122.90.109
+Tomato-staging: ssh -i ~/.ssh/tomatoai_rsa root@164.90.226.131
+Tomato-prodezza: ssh -i ~/.ssh/tomatoai_rsa root@159.89.5.105
+Tomato-app: ssh -i ~/.ssh/tomatoai_rsa root@167.172.107.164
