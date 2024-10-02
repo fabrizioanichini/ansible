@@ -1,0 +1,39 @@
+- name: Install nodejs and npm
+  dnf:
+    name: 
+      - nodejs
+      - npm
+    state: present
+    update_cache: yes
+  become: yes
+  tags:
+    - node
+
+- name: Install N
+  npm:
+    name: n
+    global: yes
+  become: yes
+  tags:
+    - node
+
+- name: Install LTS version of Node
+  shell: n lts 
+  become: yes
+  tags:
+    - node
+
+- name: Install tldr globally
+  npm:
+    name: tldr
+    global: yes
+  become: yes
+  tags:
+    - node
+
+- name: Refresh shell to recognize new Node version
+  shell: source ~/.bashrc
+  args:
+    executable: /bin/bash
+  tags:
+    - node

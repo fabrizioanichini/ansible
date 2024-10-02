@@ -1,9 +1,0 @@
-[general]
-temp-day=6500
-temp-night=2500
-location-provider=manual
-
-[manual]
-lat=43.7696
-lon=11.2558
-

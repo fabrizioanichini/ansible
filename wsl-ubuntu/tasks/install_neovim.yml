@@ -1,0 +1,61 @@
+- name: Ensure correct permissions for Neovim and local directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ lookup('env', 'USER') }}"
+    group: "{{ lookup('env', 'USER') }}"
+    mode: '0755'
+    recurse: yes
+  loop:
+    - "{{ ansible_env.HOME }}/.config/nvim"
+    - "{{ ansible_env.HOME }}/.local/share/nvim"
+    - "{{ ansible_env.HOME }}/.local/state/nvim"
+    - "{{ ansible_env.HOME }}/.local/share"
+    - "{{ ansible_env.HOME }}/.local/state"
+  become: yes
+  tags:
+    - nvim
+
+- name: Download latest Neovim Linux64 archive
+  get_url:
+    url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+    dest: /tmp/nvim-linux64.tar.gz
+  become: true
+  tags: 
+    - nvim
+
+- name: Remove existing Neovim installation
+  file:
+    path: /opt/nvim
+    state: absent
+  become: true
+  tags: 
+    - nvim
+
+- name: Extract Neovim archive to /opt
+  unarchive:
+    src: /tmp/nvim-linux64.tar.gz
+    dest: /opt
+    remote_src: yes
+  become: true
+  tags: 
+    - nvim
+
+- name: Clean up downloaded archive
+  file:
+    path: /tmp/nvim-linux64.tar.gz
+    state: absent
+  become: true
+  tags: 
+    - nvim
+
+- name: Ensure Neovim configuration files have correct permissions
+  file:
+    path: "{{ ansible_env.HOME }}/.config/nvim"
+    owner: "{{ lookup('env', 'USER') }}"
+    group: "{{ lookup('env', 'USER') }}"
+    mode: '0755'
+    recurse: yes
+  become: yes
+  tags:
+    - nvim

@@ -1,0 +1,47 @@
+- name: Ensure system utility packages are installed
+  become: yes
+  dnf:
+    name:
+      - zsh
+      - curl
+      - tmux
+      - fzf
+      - xclip
+      - ripgrep
+      - jq
+      - unzip
+      - fastfetch
+      - wl-clipboard
+      - brightnessctl
+      - logiops
+      - pavucontrol
+    state: present
+    update_cache: yes
+  tags:
+    - core
+
+- name: Ensure UI application packages are installed
+  become: yes
+  dnf:
+    name:
+      - vim-enhanced
+      - firefox
+      - nautilus
+      - epiphany
+      - sway
+      - grim
+      - slurp
+    state: present
+    update_cache: yes
+  tags:
+    - core
+
+- name: Add the user to the video group (control brightness)
+  become: yes
+  user:
+    name: "{{ ansible_env.USER }}"
+    groups: video
+    append: yes
+  tags:
+    - core
+

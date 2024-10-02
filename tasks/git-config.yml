@@ -7,7 +7,7 @@
       [includeIf "gitdir:~/tomatoai/"]
           path = ~/.gitconfig-tomatoai
     create: yes
-  tags: 
+  tags:
     - git-config
 
 - name: Create Git configuration for Proton
@@ -17,7 +17,9 @@
       [user]
           name = Fabrizio Anichini
           email = fabrizioanichini@proton.me
-  tags: 
+      [pull]
+          rebase = false
+  tags:
     - git-config
 
 - name: Create Git configuration for Tomato AI
@@ -27,7 +29,9 @@
       [user]
           name = Fabrizio Anichini
           email = fabrizioanichini@tomatoai.it
-  tags: 
+      [pull]
+          rebase = false
+  tags:
     - git-config
 
 - name: Set global Git configuration (fallback)
@@ -38,5 +42,6 @@
   loop:
     - { name: 'user.name', value: 'Fabrizio Anichini' }
     - { name: 'user.email', value: 'fabrizioanichini@proton.me' }
+    - { name: 'pull.rebase', value: 'false' }
   tags:
     - git-config

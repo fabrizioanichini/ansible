@@ -29,8 +29,9 @@ This will install Ansibile and its dependencies on the Ubuntu system.
 ### 4. Run Ansible playbook
 
 ```bash
-ansible-playbook local.yml --ask-vault-pass --ask-become-pass
+ansible-playbook local.yml  -e "env_type=wsl-ubuntu" --ask-vault-pass --ask-become-pass
 ```
+the type can either be wsl-ubuntu or fedora.
 
 ## Utilities
 

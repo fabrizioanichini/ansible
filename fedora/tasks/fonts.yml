@@ -1,0 +1,45 @@
+- name: Set fonts source directory
+  set_fact:
+    fonts_source: "{{ playbook_dir | dirname }}/env/fedora/.local/share/fonts"
+  tags:
+    - fonts
+
+- name: Check if Fedora-specific fonts directory exists
+  stat:
+    path: "{{ fonts_source }}"
+  register: fedora_fonts_dir
+  tags:
+    - fonts
+
+- name: Ensure .local/share/fonts directory exists in user's home
+  file:
+    path: "{{ ansible_env.HOME }}/.local/share/fonts"
+    state: directory
+    mode: '0755'
+  when: env_type == 'fedora'
+  tags:
+    - fonts
+
+- name: Synchronize fonts to .local/share/fonts
+  synchronize:
+    src: "{{ fonts_source }}/"
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts/"
+    delete: no
+  when: 
+    - env_type == 'fedora'
+    - fedora_fonts_dir.stat.exists
+  tags:
+    - fonts
+
+- name: Update font cache
+  command: fc-cache -f -v
+  when: env_type == 'fedora'
+  tags:
+    - fonts
+
+- name: Display info about font installation
+  debug:
+    msg: "{% if fedora_fonts_dir.stat.exists %}Fonts were copied from {{ fonts_source }} to {{ ansible_env.HOME }}/.local/share/fonts/.{% else %}Warning: {{ fonts_source }} directory does not exist. No fonts were copied.{% endif %}"
+  when: env_type == 'fedora'
+  tags:
+    - fonts
