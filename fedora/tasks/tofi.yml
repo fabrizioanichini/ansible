@@ -9,6 +9,7 @@
       - wayland-devel
       - libxkbcommon-devel
       - harfbuzz
+      - gcc
     state: present
 
 - name: Ensure build-time dependencies are installed

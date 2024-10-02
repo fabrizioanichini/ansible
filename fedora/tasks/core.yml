@@ -13,6 +13,8 @@
       - fastfetch
       - wl-clipboard
       - brightnessctl
+      - logiops
+      - pavucontrol
     state: present
     update_cache: yes
   tags:
